@@ -8,11 +8,14 @@ public class Playlist {
 	private int id;
 	private String name;
 	private Set<Song> songs;
+	private int userId;
 	
-	public Playlist(int id, String name) {
+	
+	public Playlist(int id, String name, int userId) {
 		this.id = id;
 		this.name = name;
 		this.songs = new TreeSet<Song>((s1, s2) -> s1.getId() - s2.getId());
+		this.userId = userId;
 	}
 	
 	public Set<Song> getSongs() {
@@ -36,5 +39,13 @@ public class Playlist {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

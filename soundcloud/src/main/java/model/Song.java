@@ -7,12 +7,14 @@ public class Song {
 	private String name;
 	private String artist;
 	private LocalDateTime uploadDate;
+	private int userId;
 	
-	public Song(int id, String name, String artist){
+	public Song(int id, String name, String artist, int userId){
 		this.id = id;
 		this.name = name;
 		this.artist = artist;
 		this.uploadDate = LocalDateTime.now();
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -37,5 +39,15 @@ public class Song {
 
 	public void setId(int id) {
 		this.id = id;
-	}	
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
 }
