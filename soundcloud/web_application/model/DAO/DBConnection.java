@@ -1,7 +1,9 @@
-package model;
+package com.soundcloud.model.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
+import com.soundcloud.model.exceptions.ConnectionException;
 
 public class DBConnection {
 	private static DBConnection instance;
@@ -22,12 +24,13 @@ public class DBConnection {
 	}
 	
 	
-	public static DBConnection getInstance() {
+	public static DBConnection getInstance() throws ConnectionException {
 		if (instance == null) {
 			try {
 				instance = new DBConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new ConnectionException("Starting the connection failed. Try again.");
 			}
 		}
 		

@@ -1,4 +1,4 @@
-package model;
+package com.soundcloud.model.exceptions;
 
 public class UserException extends Exception {
 
