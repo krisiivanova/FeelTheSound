@@ -20,12 +20,12 @@
 				 <form:form action="Login" commandName="user">
 					<div class="reg_section username">
 						<h3>Email</h3>
-						<form:input path="email"  placeholder="Your Email"/>
+						<form:input path="email"  placeholder="Your Email" required="required"/>
 						<form:errors path="email" cssClass="error"/>
 					</div>
 					<div class="reg_section password">
 						<h3>Password</h3>
-						<form:input path="password"  placeholder="Your Password"/>
+						<form:input type="password" path="password"  placeholder="Your Password" required="required"/>
 						<form:errors path="password" cssClass="error"/>
 					</div>
 						<p class="submit"><input type="submit" name="commit" value="Login"></p>

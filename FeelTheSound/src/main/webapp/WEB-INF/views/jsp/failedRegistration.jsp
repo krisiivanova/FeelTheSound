@@ -18,27 +18,29 @@
 	<div class="container">
 		<section class="register">
 			<h1>Sign up on FeelTheSound</h1>
-
+			<h1 style="color: red">Failed to register you. Please try again.</h1>
 			<form:form action="Register" commandName="user">
 				<div class="reg_section username">
 					<h3>Username</h3>
-					<form:input path="username" placeholder="Username" maxlength="15" required="required"/>
+					<form:input path="username" placeholder="Username"
+						required="required" />
 					<form:errors path="username" cssClass="error" />
 				</div>
 				<div class="reg_section email">
 					<h3>Email</h3>
-					<form:input path="email" placeholder="Email" maxlength="23" required="required"/>
+					<form:input path="email" placeholder="Email" / required="required" />
 					<form:errors path="email" cssClass="error" />
 				</div>
 				<div class="reg_section password">
 					<h3>Password</h3>
 					<form:input type="password" path="password" placeholder="Password"
-						maxlength="13" required="required"/>
+						required="required" />
 					<form:errors path="password" cssClass="error" />
 				</div>
 				<div class="reg_section password">
 					<h3>Confirm password</h3>
-					<form:input type="password" path="password" placeholder="Confirm password" maxlength="13" required="required"/>
+					<form:input type="password" path="password"
+						placeholder="Confirm password" required="required" />
 					<form:errors path="password" cssClass="error" />
 				</div>
 				<p class="submit">

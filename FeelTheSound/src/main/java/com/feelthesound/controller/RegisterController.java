@@ -18,25 +18,20 @@ import com.feelthesound.model.exceptions.UserException;
 @Controller
 public class RegisterController {
 	@RequestMapping(value = "/Register", method = RequestMethod.POST)
-	public String register(@ModelAttribute User user, HttpSession httpSession, BindingResult result) {
-
+	public String register(@Valid @ModelAttribute User user, Model model, HttpSession httpSession) {
 		try {
-			if (result.hasErrors()) {
-				return "register";
-			}
-			
-			if (!new UserDAO().isUserExisting(user)) {
-				new UserDAO().registerUser(user);
-				httpSession.setAttribute("user", user);
+			if (new UserDAO().isUserExisting(user)) {
+				model.addAttribute("message", "This account already exists");
+				return "failedRegistration";
+			}else{
+					new UserDAO().registerUser(user);
+					httpSession.setAttribute("user", user);
 					return "successfulRegistration";
 				}
 			
-			return "";
-			
-		} catch (ConnectionException e) {
-			return "redirect:/pages/404.html";
-		} catch (UserException e) {
-			return "";
+		} catch (Exception e){
+			model.addAttribute("message", "Invalid register");
+			return "failedRegistration";
 		}
 	}
 

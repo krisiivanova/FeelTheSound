@@ -1,5 +1,10 @@
 package com.feelthesound.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.feelthesound.model.exceptions.UserException;
 import com.feelthesound.model.validators.*;
 

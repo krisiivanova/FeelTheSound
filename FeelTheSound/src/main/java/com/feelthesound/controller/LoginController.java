@@ -16,22 +16,20 @@ import com.feelthesound.model.exceptions.UserException;
 
 @Controller
 public class LoginController {
-
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public String login(@ModelAttribute User user, HttpSession httpSession, BindingResult result) {
+	public String login(@ModelAttribute User user, Model model, HttpSession httpSession) {
 		try {
 			if (new UserDAO().isUserExisting(user)) {
 				httpSession.setAttribute("user", user);
 					return "successfulLogin";
 				}
 			
+			model.addAttribute("message", "Invalid username or password");
 			return "failedLogin";
 			
-		} catch (ConnectionException e) {
-			return "redirect:/pages/404.html";
-		} catch (UserException e) {
-			System.out.println("4");
-			return "loginFailed";
+		} catch (Exception e) {
+			model.addAttribute("message", "Invalid username or password");
+			return "failedLogin";
 		}
 	}
 	

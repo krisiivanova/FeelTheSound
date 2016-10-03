@@ -21,7 +21,7 @@ public class UserDAO implements IUserDAO {
 	
 	private static final String SELECT_ALL_SONGS_BY_USER = "SELECT count(*) FROM soundcloud.songs WHERE uploader_id = ?";
 	private static final String INSERT_USER_SQL = "INSERT INTO soundcloud.users(id, username, password, email) VALUES (null, ?, md5(?), ?)";
-	private static final String SELECT_USER_SQL= "SELECT user_id FROM soundcloud.users WHERE = ? AND password = md5(?)";
+	private static final String SELECT_USER_SQL= "SELECT user_id FROM soundcloud.users WHERE email = ? AND password = md5(?)";
 	private static final String DELETE_USER_SQL = "DELETE FROM soundcloud.users WHERE id = ?";
 	private static final String CHECK_USER_EXISTING_SQL = "SELECT COUNT(*) FROM soundcloud.users WHERE email = ? AND password = md5(?)";
     private static final String FOLLOW_USER_SQL = "INSERT into soundcloud.follows (follower_id , following_id) values (?,?)";
@@ -102,7 +102,6 @@ public class UserDAO implements IUserDAO {
 	/* (non-Javadoc)
 	 * @see com.feelthesound.model.DAOs.IUserDAO#isUserExisting(com.feelthesound.model.IUser)
 	 */
-	@Override
 	public boolean isUserExisting(IUser user) throws UserException, ConnectionException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
