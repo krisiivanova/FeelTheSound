@@ -28,7 +28,7 @@
 				</div>
 				<div class="reg_section email">
 					<h3>Email</h3>
-					<form:input path="email" placeholder="Email" / required="required" />
+					<form:input path="email" placeholder="Email" required="required" />
 					<form:errors path="email" cssClass="error" />
 				</div>
 				<div class="reg_section password">
