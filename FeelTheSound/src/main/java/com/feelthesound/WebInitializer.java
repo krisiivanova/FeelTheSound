@@ -3,6 +3,8 @@ package com.feelthesound;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -33,7 +35,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return multipartConfigElement;
 	}
 
-	private static final String LOCATION = "D:\\files\\"; // Temporary location
+	
+
+	private static final String LOCATION = "C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files"; // Temporary location
 															// where files will
 															// be stored
 
@@ -41,7 +45,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 														// Beyond that size
 														// spring will throw
 														// exception.
-	
+
 	private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total
 															// request size
 															// containing Multi
