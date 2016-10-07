@@ -38,7 +38,7 @@
 							class="glyphicon glyphicon-user"></span> Edit profile</a></li>
 					<li><a href="./uploadMusic"><span
 							class="glyphicon glyphicon-user"></span> Upload</a></li>
-					<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span>Log
+					<li><a href=""><span class="glyphicon glyphicon-log-in"></span>Log
 							out</a></li>
 				</ul>
 			</div>
@@ -49,10 +49,11 @@
 	<div class="row">
 		<div class="col-lg-5">
 			<div class="media">
-				<a class="pull-left" href="#"> <img
+				<a class="pull-left"> <img
 					class="media-object dp img-circle"
 					src="C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files${user.profilePhoto}"
 					style="width: 100px; height: 100px;"><br></a>
+
 				<button>
 					<a href="./uploadFile" style="color: green;">Change profile
 						photo</a>
@@ -79,8 +80,7 @@
 		</div>
 	</div>
 	</div>
-
-
+	
 	<div class="container">
 		<div class="row">
 			<div class="panel-body">

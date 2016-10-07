@@ -35,14 +35,23 @@
 			onsubmit="Validatebodypanelbumper()">
 			<table>
 				<tr>
-					<td><h2>Upload your own song: </h2></td>
-				<tr>
-					<br>
-				<tr></tr>
+					<td><h2>Upload your own song:</h2></td>
+				</tr>
+
+
 				<tr>
 					<td><input type="file" id="btn" name="file" accept="mp3/*" /></td>
 					<td></td>
 					<td><input type="submit" id="btn" value="Upload" /></td>
+				</tr>
+
+				<tr>
+					<td><input path="songArtist" placeholder="Artist"
+						required="required" /></td>
+				</tr>
+				<tr>
+					<td><input path="songName" placeholder="Song"
+						required="required" /></td>
 				</tr>
 			</table>
 		</form>
