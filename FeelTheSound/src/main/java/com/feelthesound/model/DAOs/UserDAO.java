@@ -19,19 +19,26 @@ import com.feelthesound.model.exceptions.UserException;
 
 @Component
 public class UserDAO implements IUserDAO {
-	
+
 	private static final String SELECT_ALL_SONGS_BY_USER = "SELECT count(*) FROM soundcloud.songs WHERE uploader_id = ?";
 	private static final String INSERT_USER_SQL = "INSERT INTO soundcloud.users(id, username, password, email) VALUES (null, ?, md5(?), ?)";
-	private static final String SELECT_USER_SQL= "SELECT user_id FROM soundcloud.users WHERE email = ? AND password = md5(?)";
+	private static final String SELECT_USER_SQL = "SELECT user_id FROM soundcloud.users WHERE email = ? AND password = md5(?)";
 	private static final String DELETE_USER_SQL = "DELETE FROM soundcloud.users WHERE id = ?";
 	private static final String CHECK_USER_EXISTING_SQL = "SELECT COUNT(*) FROM soundcloud.users WHERE username = ? AND password = md5(?)";
-    private static final String FOLLOW_USER_SQL = "INSERT into soundcloud.follows (follower_id , following_id) values (?,?)";
-    private static final String SELECT_ALL_SONGS_SQL = "SELECT s.id, s.song_name, s.artist_name, s.genre FROM songs s " + "WHERE s.user_id = ? " + "ORDER BY postadate; ";
+	private static final String FOLLOW_USER_SQL = "INSERT into soundcloud.follows (follower_id , following_id) values (?,?)";
+	private static final String SELECT_ALL_SONGS_SQL = "SELECT s.id, s.song_name, s.artist_name, s.genre FROM songs s "
+			+ "WHERE s.user_id = ? " + "ORDER BY postadate; ";
 	private static final String SELECT_USER_FOLLOWERS_COUNT = "SELECT COUNT(follower_id) FROM soundcloud.follows WHERE following_id = ?";
 	private static final String SELECT_USER_FOLLOWING_COUNT = "SELECT COUNT(following_id) FROM soundcloud.follows WHERE follower_id = ?";
-	
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IUserDAO#registerUser(com.feelthesound.model.IUser)
+	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT photo FROM soundcloud.users WHERE id = ? ";
+	private static final String UPDATE_USER_PHOTO = "UPDATE soundcloud.users SET photo = ? WHERE id = ?";
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.feelthesound.model.DAOs.IUserDAO#registerUser(com.feelthesound.model.
+	 * IUser)
 	 */
 	@Override
 	public int registerUser(IUser user) throws UserException, ConnectionException {
@@ -53,10 +60,13 @@ public class UserDAO implements IUserDAO {
 			throw new UserException("User registration failed!");
 		}
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IUserDAO#loginUser(com.feelthesound.model.IUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.feelthesound.model.DAOs.IUserDAO#loginUser(com.feelthesound.model.
+	 * IUser)
 	 */
 	@Override
 	public int loginUser(IUser user) throws UserException, ConnectionException {
@@ -67,19 +77,22 @@ public class UserDAO implements IUserDAO {
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getPassword());
 			ResultSet rs = ps.executeQuery();
-			
+
 			if (rs.next() == false) {
 				throw new UserException("User login failed!");
 			}
 
 			return rs.getInt(1);
-			
-		} catch (SQLException e ) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new UserException("Something went wrong!");
 		}
-}
-	/* (non-Javadoc)
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.feelthesound.model.DAOs.IUserDAO#deleteUser(int)
 	 */
 	@Override
@@ -90,18 +103,21 @@ public class UserDAO implements IUserDAO {
 			PreparedStatement ps = connection.prepareStatement(DELETE_USER_SQL);
 			ps.setInt(1, userId);
 			int deletedRows = ps.executeUpdate();
-			
+
 			return deletedRows >= 1;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new UserException("Not able to delete this user!");
 		}
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IUserDAO#isUserExisting(com.feelthesound.model.IUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.feelthesound.model.DAOs.IUserDAO#isUserExisting(com.feelthesound.
+	 * model.IUser)
 	 */
 	public boolean isUserExisting(IUser user) throws UserException, ConnectionException {
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -126,8 +142,10 @@ public class UserDAO implements IUserDAO {
 			throw new UserException("Failed checking if user exists!");
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.feelthesound.model.DAOs.IUserDAO#follow(int, int)
 	 */
 	@Override
@@ -144,7 +162,7 @@ public class UserDAO implements IUserDAO {
 			throw new UserException("Cannot follow this user!");
 		}
 	}
-	
+
 	public static List<Song> getAllSongsByUser(int userId) throws ConnectionException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		List<Song> result = new ArrayList<Song>();
@@ -165,73 +183,121 @@ public class UserDAO implements IUserDAO {
 
 		return result;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.feelthesound.model.DAOs.IUserDAO#getUserSongsCount(int)
 	 */
 	@Override
-	public  int getUserSongsCount(int userId) throws ConnectionException {
+	public int getUserSongsCount(int userId) throws ConnectionException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		int result = 0;
 		try {
-		    PreparedStatement statement = connection.prepareStatement(SELECT_ALL_SONGS_BY_USER);
-		    statement.setInt(1, userId);
+			PreparedStatement statement = connection.prepareStatement(SELECT_ALL_SONGS_BY_USER);
+			statement.setInt(1, userId);
 
 			ResultSet rs = statement.executeQuery();
-			rs.next();	
-			
+			rs.next();
+
 			result = rs.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.feelthesound.model.DAOs.IUserDAO#getUserFollowersCount(int)
 	 */
 	@Override
-	public  int getUserFollowersCount(IUser user) throws UserException {
+	public int getUserFollowersCount(IUser user) throws UserException {
 		Connection connection;
 		try {
 			connection = DBConnection.getInstance().getConnection();
-			
+
 			int result = 0;
-			 PreparedStatement statement = connection.prepareStatement(SELECT_USER_FOLLOWERS_COUNT);
-			 statement.setInt(1, user.getId());
-			 
+			PreparedStatement statement = connection.prepareStatement(SELECT_USER_FOLLOWERS_COUNT);
+			statement.setInt(1, user.getId());
+
 			ResultSet rs = statement.executeQuery();
-			rs.next();	
+			rs.next();
 			result = rs.getInt(1);
-			
-			
+
 			return result;
 		} catch (ConnectionException | SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.feelthesound.model.DAOs.IUserDAO#getUserFollowingCount(int)
 	 */
 	@Override
-	public  int getUserFollowingCount (IUser user) throws ConnectionException {
+	public int getUserFollowingCount(IUser user) throws ConnectionException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		int result = 0;
 		try {
-			 PreparedStatement statement = connection.prepareStatement(SELECT_USER_FOLLOWING_COUNT);
-			 statement.setInt(1, user.getId());
+			PreparedStatement statement = connection.prepareStatement(SELECT_USER_FOLLOWING_COUNT);
+			statement.setInt(1, user.getId());
 
 			ResultSet rs = statement.executeQuery();
-			rs.next();	
+			rs.next();
 			result = rs.getInt(1);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
+	}
+
+	public int insertProfilePic(User user1) {
+		Connection connection;
+		try {
+			connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement(UPDATE_USER_PHOTO, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, user1.getProfilePhoto());
+			ps.setInt(2, user1.getId());
+
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+
+			return rs.getInt(1);
+
+		} catch (ConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public String getProfilePhoto(User user1) {
+		try {
+			Connection connection = DBConnection.getInstance().getConnection();
+
+			PreparedStatement statement = connection.prepareStatement(SELECT_USER_PROFILE_PHOTO);
+			statement.setInt(1, user1.getId());
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			return rs.getString(1);
+
+		} catch (ConnectionException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

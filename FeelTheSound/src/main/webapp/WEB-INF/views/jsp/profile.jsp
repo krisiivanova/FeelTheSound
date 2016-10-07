@@ -34,11 +34,11 @@
 					<li class="active"><a href="#">Profile</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="./editProfile"><span class="glyphicon glyphicon-user"></span>
-							Edit profile</a></li>
-					<li><a href="./uploadMusic"><span class="glyphicon glyphicon-user"></span>
-							Upload</a></li>
-					<li><a href=""><span class="glyphicon glyphicon-log-in"></span>Log
+					<li><a href="./editProfile"><span
+							class="glyphicon glyphicon-user"></span> Edit profile</a></li>
+					<li><a href="./uploadMusic"><span
+							class="glyphicon glyphicon-user"></span> Upload</a></li>
+					<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span>Log
 							out</a></li>
 				</ul>
 			</div>
@@ -50,7 +50,8 @@
 		<div class="col-lg-5">
 			<div class="media">
 				<a class="pull-left" href="#"> <img
-					class="media-object dp img-circle" src="images/no-photo.jpg"
+					class="media-object dp img-circle"
+					src="C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files${user.profilePhoto}"
 					style="width: 100px; height: 100px;"><br></a>
 				<button>
 					<a href="./uploadFile" style="color: green;">Change profile
@@ -68,7 +69,7 @@
 									<p style="color: black;">${followers}</p>
 									<br>
 
-									<h3 style="color: black;" >FOLLOWING</h3>
+									<h3 style="color: black;">FOLLOWING</h3>
 									<h4 style="color: black;">${following}</h4>
 								</div>
 

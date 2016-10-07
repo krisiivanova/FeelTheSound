@@ -42,7 +42,8 @@
 				<tr>
 					<td><input type="file" id="btn" name="file" accept="image/*" /></td>
 					<td></td>
-					<td><input type="submit" id="btn" value="Upload" /></td>
+					<td><input type="submit" id="btn" value="Upload" />
+					<a href = "./profile"/></td>
 				</tr>
 			</table>
 		</form>

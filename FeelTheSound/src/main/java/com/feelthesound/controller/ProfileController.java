@@ -17,26 +17,29 @@ import com.feelthesound.model.exceptions.UserException;
 public class ProfileController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(@ModelAttribute("user") User user, Model model, HttpSession session) {
-			try {
-				int countOfFollowers = new UserDAO().getUserFollowersCount(user);
-				int countOfFollowing = new UserDAO().getUserFollowingCount(user);
-				
-				User user1 = (User) session.getAttribute("user");
-				model.addAttribute("username", user1.getUsername());
-				model.addAttribute("followers", countOfFollowers);
-				model.addAttribute("following", countOfFollowing);
-				
-				return "profile";
-				
-				
-			} catch (UserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ConnectionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+		try {
+			UserDAO userDAO = new UserDAO();
+			int countOfFollowers = new UserDAO().getUserFollowersCount(user);
+			int countOfFollowing = new UserDAO().getUserFollowingCount(user);
+
+			User user1 = (User) session.getAttribute("user");
+			model.addAttribute("username", user1.getUsername());
+			model.addAttribute("followers", countOfFollowers);
+			model.addAttribute("following", countOfFollowing);
+
+			String profilePhoto = userDAO.getProfilePhoto(user1);
+			model.addAttribute("profilePhoto", profilePhoto);
+
 			return "profile";
+
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "profile";
 	}
 }
