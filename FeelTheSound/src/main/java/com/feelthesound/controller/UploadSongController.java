@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-public class UploadProfilePicController {
+public class UploadSongController {
 
 	private static final String UPLOAD_LOCATION = "D:\\files\\";
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
+	@RequestMapping(value = "/uploadMusic", method = RequestMethod.GET)
 	public String showUploadPage() {
-		return "fileUpload";
+		return "uploadSong";
 	}
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadMusic", method = RequestMethod.POST)
 	public String singleFileUpload(@RequestParam("file") MultipartFile multipartFile, 
 			ModelMap model)
 			throws IOException {
@@ -30,7 +30,7 @@ public class UploadProfilePicController {
 		String fileName = path[path.length-1];
 		FileCopyUtils.copy(multipartFile.getBytes(), new File(UPLOAD_LOCATION + fileName));
 		
-		return "fileUpload";
+		return "uploadSong";
 	}
 }
 

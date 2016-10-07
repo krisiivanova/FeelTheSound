@@ -18,7 +18,7 @@
 <link rel="icon" href="images/tab.png">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #ADFF2F;">
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -34,9 +34,9 @@
 					<li class="active"><a href="#">Profile</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					<li><a href="./editProfile"><span class="glyphicon glyphicon-user"></span>
 							Edit profile</a></li>
-					<li><a href=""><span class="glyphicon glyphicon-user"></span>
+					<li><a href="./uploadMusic"><span class="glyphicon glyphicon-user"></span>
 							Upload</a></li>
 					<li><a href=""><span class="glyphicon glyphicon-log-in"></span>Log
 							out</a></li>
@@ -51,24 +51,27 @@
 			<div class="media">
 				<a class="pull-left" href="#"> <img
 					class="media-object dp img-circle" src="images/no-photo.jpg"
-					style="width: 100px; height: 100px;">
-					<a href="./uploadFile">Change profile photo</a>
-				</a>
+					style="width: 100px; height: 100px;"><br></a>
+				<button>
+					<a href="./uploadFile" style="color: green;">Change profile
+						photo</a>
+				</button>
+				<br> <br>
 				<div class="media-body">
 					<h4 class="media-heading">
 						Welcome, ${username}!<small>
 							<hr style="margin: 8px auto">
 							<div class="col-md-7 user-details">
-								<div class="row overview">
-									<div class="col-md-4 user-pad text-center">
-										<h3>FOLLOWERS</h3>
-										<p>${followers}</p>
-									</div>
-									<div class="col-md-4 user-pad text-center">
-										<h3>FOLLOWING</h3>
-										<h4>${following}</h4>
-									</div>
+
+								<div align="justify">
+									<h3 style="color: black;">FOLLOWERS</h3>
+									<p style="color: black;">${followers}</p>
+									<br>
+
+									<h3 style="color: black;" >FOLLOWING</h3>
+									<h4 style="color: black;">${following}</h4>
 								</div>
+
 							</div>
 				</div>
 			</div>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Upload your profile picture</title>
+<title>Upload song</title>
 <script type="text/javascript">
 	function Validatebodypanelbumper(theForm) {
 		var regexp;
@@ -35,12 +35,12 @@
 			onsubmit="Validatebodypanelbumper()">
 			<table>
 				<tr>
-					<td><h2>Choose your profile picture: </h2></td>
+					<td><h2>Upload your own song: </h2></td>
 				<tr>
 					<br>
 				<tr></tr>
 				<tr>
-					<td><input type="file" id="btn" name="file" accept="image/*" /></td>
+					<td><input type="file" id="btn" name="file" accept="mp3/*" /></td>
 					<td></td>
 					<td><input type="submit" id="btn" value="Upload" /></td>
 				</tr>
