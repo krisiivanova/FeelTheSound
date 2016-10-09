@@ -21,7 +21,7 @@ import com.feelthesound.model.DAOs.UserDAO;
 
 @Controller
 public class UploadProfilePicController {
-	public static final String UPLOAD_LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\profilePhotos\\";
+	public static final String UPLOAD_LOCATION = "C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files\\";
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
 	public String showUploadPage() {

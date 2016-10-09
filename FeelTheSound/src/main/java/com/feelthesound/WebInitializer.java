@@ -32,12 +32,12 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	private MultipartConfigElement getMultipartConfigElement() {
 		MultipartConfigElement multipartConfigElement = new MultipartConfigElement(LOCATION, MAX_FILE_SIZE,
 				MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
-	
+
 		return multipartConfigElement;
 	}
 
-	private static final String LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\profilePhotos\\"; 
-	private static final long MAX_FILE_SIZE = 5242880; 
+	private static final String LOCATION = "C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files\\";
+	private static final long MAX_FILE_SIZE = 5242880;
 	private static final long MAX_REQUEST_SIZE = 20971520;
 	private static final int FILE_SIZE_THRESHOLD = 0;
 }

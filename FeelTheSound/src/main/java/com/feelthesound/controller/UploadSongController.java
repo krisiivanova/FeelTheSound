@@ -1,6 +1,5 @@
 package com.feelthesound.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 
@@ -15,21 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UploadSongController {
 
-	private static final String UPLOAD_LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\songs\\";
-	
+	private static final String UPLOAD_LOCATION = "C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files\\";
+
 	@RequestMapping(value = "/uploadMusic", method = RequestMethod.GET)
 	public String showUploadPage() {
 		return "uploadSong";
 	}
 
 	@RequestMapping(value = "/uploadMusic", method = RequestMethod.POST)
-	public String singleFileUpload(@RequestParam("file") MultipartFile multipartFile, 
-			ModelMap model)
+	public String singleFileUpload(@RequestParam("file") MultipartFile multipartFile, ModelMap model)
 			throws IOException {
 		String[] path = multipartFile.getOriginalFilename().split("\\\\");
-		String fileName = path[path.length-1];
+		String fileName = path[path.length - 1];
 		FileCopyUtils.copy(multipartFile.getBytes(), new File(UPLOAD_LOCATION + fileName));
-		
+
 		return "uploadSong";
 	}
 }
