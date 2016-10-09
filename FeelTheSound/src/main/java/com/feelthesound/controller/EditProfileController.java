@@ -13,5 +13,4 @@ public class EditProfileController {
 	public String showEditPage() {
 		return "edit";
 	}
-
 }

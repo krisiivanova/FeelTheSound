@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="icon" href="images/tab.png">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
 <title>Upload your profile picture</title>
 <script type="text/javascript">
 	function Validatebodypanelbumper(theForm) {
@@ -20,34 +24,29 @@
 	}
 </script>
 </head>
-<style>
-#btn {
-	width: 110px;
-	height: 20px;
-}
-</style>
-<body style="background-color: #ADFF2F;">
-	<img src="images/feelTheSound.jpg" align="right" width=400px;
-		height=200px;>
 
+<body>
 	<div>
-		<form method="POST" enctype="multipart/form-data"
-			onsubmit="Validatebodypanelbumper()">
-			<table>
-				<tr>
-					<td><h2>Choose your profile picture: </h2></td>
-				<tr>
-					<br>
-				<tr></tr>
-				<tr>
-					<td><input type="file" id="btn" name="file" accept="image/*" /></td>
-					<td></td>
-					<td><input type="submit" id="btn" value="Upload" />
-					<a href = "./profile"/></td>
-				</tr>
-			</table>
-		</form>
+		<center>
+			<img src="images/logo.png" alt="Logo" align="middle">
+			<form method="POST" enctype="multipart/form-data"
+				onsubmit="Validatebodypanelbumper()">
+				<table>
+					<tr>
+						<td><h2 style="color: black">
+								<center>Choose your profile picture:</center>
+							</h2></td>
+					<tr>
+						<br>
+					<tr></tr>
+					<tr>
+						<td><input type="file" id="btn" name="file" accept="image/*" /></td>
+						<td></td>
+						<td><input type="submit" id="btn" value="Upload" /></td>
+					</tr>
+				</table>
+			</form>
+		</center>
 	</div>
-
 </body>
 </html>

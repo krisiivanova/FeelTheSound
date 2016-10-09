@@ -1,11 +1,5 @@
 package com.feelthesound.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.feelthesound.model.exceptions.UserException;
 import com.feelthesound.model.validators.*;
 
 public class User implements IUser {
@@ -19,13 +13,7 @@ public class User implements IUser {
 	private String profilePhoto;
 	private String email;
 
-	// private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
-	// private HashSet<User> following = new HashSet<User>();
-	// private HashSet<User> followers = new HashSet<User>();
-	// private ArrayList<Song> uploadedSongs = new ArrayList<Song>();
-	// private HashSet<Song> likedSongs = new HashSet<Song>();
-
-	public User(int id, String username, String password, String email) throws UserException {
+	public User(int id, String username, String password, String email){
 		this.id = id;
 		this.setUsername(username);
 		this.setPassword(password);
@@ -39,7 +27,7 @@ public class User implements IUser {
 		return email;
 	}
 
-	public void setEmail(String email) throws UserException {
+	public void setEmail(String email){
 		if (new EmailValidator().validate(email)) {
 			this.email = email;
 		}
@@ -49,7 +37,7 @@ public class User implements IUser {
 		return username;
 	}
 
-	public void setUsername(String username) throws UserException {
+	public void setUsername(String username){
 		if (new UsernameValidator().validate(username)) {
 			this.username = username;
 		}
@@ -75,7 +63,7 @@ public class User implements IUser {
 		return password;
 	}
 
-	public void setPassword(String password) throws UserException {
+	public void setPassword(String password) {
 		if (new PasswordValidator().validate(password)) {
 			this.password = password;
 		}

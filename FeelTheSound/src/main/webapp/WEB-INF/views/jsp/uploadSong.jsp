@@ -4,6 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="icon" href="images/tab.png">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+
 <title>Upload song</title>
 <script type="text/javascript">
 	function Validatebodypanelbumper(theForm) {
@@ -20,16 +25,8 @@
 	}
 </script>
 </head>
-<style>
-#btn {
-	width: 110px;
-	height: 20px;
-}
-</style>
-<body style="background-color: #ADFF2F;">
-	<img src="images/feelTheSound.jpg" align="right" width=400px;
-		height=200px;>
 
+<body>
 	<div>
 		<form method="POST" enctype="multipart/form-data"
 			onsubmit="Validatebodypanelbumper()">
@@ -56,6 +53,5 @@
 			</table>
 		</form>
 	</div>
-
 </body>
 </html>

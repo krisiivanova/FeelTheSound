@@ -39,12 +39,6 @@
 						maxlength="13" required="required" />
 					<form:errors path="password" cssClass="error" />
 				</div>
-<!-- 				<div class="reg_section password"> -->
-<!-- 					<h3>Confirm password</h3> -->
-<%-- 					<form:input type="password" path="password" --%>
-<%-- 						placeholder="Confirm password" maxlength="13" required="required" /> --%>
-<%-- 					<form:errors path="password" cssClass="error" /> --%>
-<!-- 				</div> -->
 				<p class="submit">
 					<input type="submit" name="commit" value="Register">
 				</p>

@@ -1,25 +1,35 @@
 package com.feelthesound.model.DAOs;
 
+import java.util.List;
+import java.util.Set;
+
 import com.feelthesound.model.IUser;
+import com.feelthesound.model.Song;
+import com.feelthesound.model.User;
 import com.feelthesound.model.exceptions.ConnectionException;
 import com.feelthesound.model.exceptions.UserException;
 
 public interface IUserDAO {
+	
+	public Set<User> getAllUsers();
 
-	int registerUser(IUser user) throws UserException, ConnectionException;
+	int registerUser(IUser user);
 
-	int loginUser(IUser user) throws UserException, ConnectionException;
+	int loginUser(IUser user);
 
-	boolean deleteUser(int userId) throws UserException, ConnectionException;
+	boolean isUserExisting(IUser user);
 
-	boolean isUserExisting(IUser user) throws UserException, ConnectionException;
+	void follow(int followerId, int followingId);
 
-	void follow(int followerId, int followingId) throws ConnectionException, UserException;
+	int getUserSongsCount(int userId);
 
-	int getUserSongsCount(int userId) throws ConnectionException;
+	int getUserFollowersCount(IUser user);
 
-	int getUserFollowersCount(IUser user) throws ConnectionException, UserException;
+	int getUserFollowingCount(IUser user);
 
-	int getUserFollowingCount(IUser user) throws ConnectionException;
+	String getProfilePhoto(User user);
 
+	int insertProfilePic(String path, User user);
+
+	List<Song> getAllSongsByUser(int userId);
 }

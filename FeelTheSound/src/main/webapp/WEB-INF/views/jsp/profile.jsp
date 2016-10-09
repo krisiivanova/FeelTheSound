@@ -17,8 +17,9 @@
 <title>FeelTheSound</title>
 <link rel="icon" href="images/tab.png">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 </head>
-<body style="background-color: #ADFF2F;">
+<body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -34,12 +35,10 @@
 					<li class="active"><a href="#">Profile</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="./editProfile"><span
-							class="glyphicon glyphicon-user"></span> Edit profile</a></li>
-					<li><a href="./uploadMusic"><span
-							class="glyphicon glyphicon-user"></span> Upload</a></li>
-					<li><a href=""><span class="glyphicon glyphicon-log-in"></span>Log
-							out</a></li>
+					<li><a href="./uploadFile">Change profile photo</a></li>
+					<li><a href="./editProfile">Edit profile</a></li>
+					<li><a href="./uploadMusic">Upload Song</a></li>
+					<li><a href="./Logout">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -49,22 +48,15 @@
 	<div class="row">
 		<div class="col-lg-5">
 			<div class="media">
-				<a class="pull-left"> <img
-					class="media-object dp img-circle"
-					src="C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files${user.profilePhoto}"
-					style="width: 100px; height: 100px;"><br></a>
-
-				<button>
-					<a href="./uploadFile" style="color: green;">Change profile
-						photo</a>
-				</button>
-				<br> <br>
+				<a class="pull-left"> <img class="media-object dp img-circle"
+					src="<%=request.getContextPath()%>${user.profilePhoto}"
+					style="width: 100px; height: 100px;"/><br></a> <br> <br>
 				<div class="media-body">
+				<center>
 					<h4 class="media-heading">
-						Welcome, ${username}!<small>
-							<hr style="margin: 8px auto">
+						Welcome, ${username}!
+						</center>
 							<div class="col-md-7 user-details">
-
 								<div align="justify">
 									<h3 style="color: black;">FOLLOWERS</h3>
 									<p style="color: black;">${followers}</p>
@@ -80,16 +72,16 @@
 		</div>
 	</div>
 	</div>
-	
+
 	<div class="container">
 		<div class="row">
 			<div class="panel-body">
-				<button class="btn btn-info btn-pressure btn-sensitive">My
-					Songs</button>
-				<button class="btn btn-info btn-pressure btn-sensitive">Liked
-					Songs</button>
-				<button class="btn btn-info btn-pressure btn-sensitive">My
-					playlist</button>
+				<button class="btn btn-info btn-pressure btn-sensitive"
+					style="background-color: black">My Songs</button>
+				<button class="btn btn-info btn-pressure btn-sensitive"
+					style="background-color: black">Liked Songs</button>
+				<button class="btn btn-info btn-pressure btn-sensitive"
+					style="background-color: black">My playlist</button>
 			</div>
 		</div>
 	</div>

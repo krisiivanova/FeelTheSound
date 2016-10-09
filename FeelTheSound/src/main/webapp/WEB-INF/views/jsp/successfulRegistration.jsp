@@ -16,7 +16,7 @@
 	<div align="center">
 	<img src="images/logo.png" alt="Logo" align="middle">
 		<h2 style="color:black">Welcome, ${user.username}! Your registration was successful!</h2>
-		<h2 style="color:black">Go to profile.</h2>
+			<a href="profile"><h2 style="color:black">Go to profile.</h2></a>
 	</div>
 </body>
 </html>

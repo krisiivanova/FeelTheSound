@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UploadSongController {
 
-	private static final String UPLOAD_LOCATION = "C:\\Users\\user\\Desktop\\projectFeelTheSoud\\files";
-
+	private static final String UPLOAD_LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\songs\\";
+	
 	@RequestMapping(value = "/uploadMusic", method = RequestMethod.GET)
 	public String showUploadPage() {
 		return "uploadSong";
@@ -33,4 +33,3 @@ public class UploadSongController {
 		return "uploadSong";
 	}
 }
-
