@@ -35,7 +35,7 @@ public class UserDAO implements IUserDAO {
 			+ "WHERE user_id = ? " + "ORDER BY postadate; ";
 	private static final String SELECT_USER_FOLLOWERS_COUNT = "SELECT COUNT(follower_id) FROM feelthesound.follows WHERE following_id = ?";
 	private static final String SELECT_USER_FOLLOWING_COUNT = "SELECT COUNT(following_id) FROM feelthesound.follows WHERE follower_id = ?";
-	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT photo FROM feelthesound.users WHERE username = ? ";
+	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT photo FROM feelthesound.users WHERE username = ?";
 	private static final String UPDATE_USER_PHOTO = "UPDATE feelthesound.users SET photo = ? WHERE username = ?";
 
 	public static UserDAO getInstance() {

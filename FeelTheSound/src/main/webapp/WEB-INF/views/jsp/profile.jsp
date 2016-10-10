@@ -49,12 +49,12 @@
 		<div class="col-lg-5">
 			<div class="media">
 				<a class="pull-left"> <img class="media-object dp img-circle"
-					src="<%=request.getContextPath()%>${user.profilePhoto}"
+					src="./mimages/${user.profilePhoto}"
 					style="width: 100px; height: 100px;" /><br></a> <br> <br>
 				<div class="media-body">
 				<center>
 					<h4 class="media-heading">
-						Welcome, ${username}!
+						Welcome, ${user.username}!
 						</center>
 							<div class="col-md-7 user-details">
 								<div align="justify">

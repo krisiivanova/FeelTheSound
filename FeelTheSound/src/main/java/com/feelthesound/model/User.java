@@ -93,6 +93,13 @@ public class User implements IUser {
 		this.profilePhoto = photo;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", password=" + password + ", country=" + country + ", city=" + city + ", profilePhoto="
+				+ profilePhoto + ", email=" + email + "]";
+	}
+
 	public int getId() {
 		return id;
 	}
