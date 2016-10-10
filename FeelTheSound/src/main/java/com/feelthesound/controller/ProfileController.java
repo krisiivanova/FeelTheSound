@@ -15,6 +15,7 @@ import com.feelthesound.model.DAOs.UserDAO;
 @Controller
 public class ProfileController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+<<<<<<< HEAD
 	public String profile(@ModelAttribute("user") User user, Model model, HttpSession session) {
 		
 		String username = (String)session.getAttribute("username");
@@ -31,6 +32,19 @@ public class ProfileController {
 		session.setAttribute("user", userInSession);
 
 		model.addAttribute("username", userInSession.getUsername());
+=======
+	public String profile(Model model, HttpSession session) {
+		User userInSession = (User) session.getAttribute("user");
+		UserDAO userDAO =  UserDAO.getInstance();
+		
+		int countOfFollowers = userDAO.getUserFollowersCount(userInSession);
+		int countOfFollowing = userDAO.getUserFollowingCount(userInSession);
+		
+		userInSession.setPhoto(userDAO.getProfilePhoto(userInSession));
+		
+		System.out.println(userInSession);
+		model.addAttribute("user", userInSession);
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 		model.addAttribute("followers", countOfFollowers);
 		model.addAttribute("following", countOfFollowing);
 

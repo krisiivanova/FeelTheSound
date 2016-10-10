@@ -36,6 +36,7 @@
 												class="glyphicon glyphicon-user"></span></span> <input type="text"
 												class="form-control" placeholder="Last Name" id="pole" />
 										</div>
+<<<<<<< HEAD
 									</div>
 									<div class="form-group">
 										<div class="input-group">
@@ -53,10 +54,30 @@
 												id="pole" />
 										</div>
 									</div>
+=======
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><span
+												class="glyphicon glyphicon-home"></span></span> <input type="text"
+												class="form-control" placeholder="City" id="pole" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon"><span
+												class="glyphicon glyphicon-calendar"></span></span> <input
+												type="text" class="form-control" placeholder="Country"
+												id="pole" />
+										</div>
+									</div>
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 									
 									<button class="btn btn-lg btn-primary btn-block" type="submit"
 										id="btnSub">Save</button>
 							</center>
+<<<<<<< HEAD
 
 						</div>
 					</div>
@@ -84,12 +105,14 @@
 								<button class="btn btn-lg btn-primary btn-block" type="submit">
 									Save</button>
 
+=======
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</form>
 	</div>
 </body>

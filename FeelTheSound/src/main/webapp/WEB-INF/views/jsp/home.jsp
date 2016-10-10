@@ -141,6 +141,10 @@
 				Cufon.now()
 				$(function() {
 					$('nav,.more,.header-more').sprites()
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 					$('.header-slider').gSlider({
 						prevBu : '.hs-prev',
 						nextBu : '.hs-next'
@@ -157,6 +161,10 @@
 									}).bind('click', function() {
 										location = "index-3.html"
 									})
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 									$('a[rel=prettyPhoto]')
 											.each(
 													function() {

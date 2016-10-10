@@ -27,8 +27,13 @@ public class UserDAO implements IUserDAO{
 	private static final String EDIT_COUNTRY = "UPDATE feelthesound.users SET country = ? WHERE username = ?";
 	private static final String INSERT_FOLLOW = "INSERT INTO feelthesound.follows (follower_id, followed_id) VALUES (?,?)";
 	private static final String SELECT_USER_FOLLOWERS_COUNT = "SELECT COUNT(follower_id) FROM feelthesound.follows WHERE following_id = ?";
+<<<<<<< HEAD
 	private static final String SELECT_USER_FOLLOWED_COUNT = "SELECT COUNT(followed_id) FROM feelthesound.follows WHERE follower_id = ?";
 	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT photo FROM feelthesound.users WHERE username = ? ";
+=======
+	private static final String SELECT_USER_FOLLOWING_COUNT = "SELECT COUNT(following_id) FROM feelthesound.follows WHERE follower_id = ?";
+	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT photo FROM feelthesound.users WHERE username = ?";
+>>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 	private static final String UPDATE_USER_PHOTO = "UPDATE feelthesound.users SET photo = ? WHERE username = ?";
 
 	
