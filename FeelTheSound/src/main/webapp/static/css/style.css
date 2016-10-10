@@ -1576,19 +1576,6 @@ dl.img-box, .img-box-set dl, dl.img-box dd, .img-box-set dl dd {
 dl.img-box dt, .img-box-set dl dt {
 	float: left
 }
-<<<<<<< HEAD
-=======
-
-#tableInput {
-	 width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
->>>>>>> d3bea165480cfe2a81670ef634080497931ec9ec
 
 #tableInput {
 	 width: 100%;
