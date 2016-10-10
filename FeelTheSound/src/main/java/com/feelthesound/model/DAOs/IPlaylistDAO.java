@@ -1,13 +1,16 @@
 package com.feelthesound.model.DAOs;
 
-import com.feelthesound.model.Playlist;
-import com.feelthesound.model.exceptions.ConnectionException;
-import com.feelthesound.model.exceptions.UserException;
+import java.util.Set;
 
 public interface IPlaylistDAO {
 
-	int addNewPlaylist(Playlist playlist) throws UserException, ConnectionException;
+	// getting all playlists by user
+	Set<String> getAllPlaylistsNamesByUser(int userId);
 
-	void addSongIntoPlaylist(Playlist playlist, int songId) throws ConnectionException;
+	//creating new playlist 
+	int addPlaylist(String title, int userId);
+
+	//adding song the a playlist 
+	int addSongInPlaylist(int playlistId, int songId);
 
 }

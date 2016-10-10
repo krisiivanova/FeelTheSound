@@ -4,11 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PasswordValidator {
-	private  Pattern pattern;
-	private  Matcher matcher;
+	private Pattern pattern;
+	private Matcher matcher;
 
-	// at least one digit, at least one lower case, at least one upper case, no
-	// spaces, between 6-13 chars
+	public static final String PASSWORD_MESSAGE = "Your password must cointain at least 1 digit, 1 lowercase, 1 uppercase, no spaces and must be between 6-13 symbols.";
 	private static final String PASSWORD_PATTERN = "(?=.*[0-9])" + "(?=.*[a-z])" + "(?=.*[A-Z])" + "(?=\\S+$)"
 			+ ".{6,13}";
 

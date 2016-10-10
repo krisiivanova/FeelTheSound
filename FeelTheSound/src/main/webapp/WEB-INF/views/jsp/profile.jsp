@@ -28,11 +28,11 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" a href="home">FeelTheSound</a>
+				<a class="navbar-brand" a href="./home">FeelTheSound</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Profile</a></li>
+					<li class="active"><a href="./profile">Profile</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="./uploadFile">Change profile photo</a></li>
@@ -50,7 +50,7 @@
 			<div class="media">
 				<a class="pull-left"> <img class="media-object dp img-circle"
 					src="<%=request.getContextPath()%>${user.profilePhoto}"
-					style="width: 100px; height: 100px;"/><br></a> <br> <br>
+					style="width: 100px; height: 100px;" /><br></a> <br> <br>
 				<div class="media-body">
 				<center>
 					<h4 class="media-heading">

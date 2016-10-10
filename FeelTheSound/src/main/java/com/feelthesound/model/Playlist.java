@@ -5,8 +5,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
-
-import com.feelthesound.model.exceptions.SongException;
 import com.feelthesound.model.validators.ValidationString;
 
 @Component
@@ -15,12 +13,12 @@ public class Playlist {
 	private String name;
 	private int userId;
 	private Set<Song> songs;
-	
-	public Playlist(){
-		
+
+	public Playlist() {
+
 	}
 
-	public Playlist(int id, String name, int userId) throws SongException {
+	public Playlist(int id, String name, int userId) {
 		this.setId(id);
 		this.setName(name);
 		this.setUserId(userId);
@@ -42,18 +40,18 @@ public class Playlist {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) throws SongException {
+	public void setName(String name) {
 		if (ValidationString.isValidString(name)) {
 			this.name = name;
-		} else {
-			throw new SongException("Invalid song name!");
 		}
 	}
 
@@ -62,6 +60,8 @@ public class Playlist {
 	}
 
 	public void setUserId(int userId) {
-		this.userId = userId;
+		if (id > 0) {
+			this.userId = userId;
+		}
 	}
 }

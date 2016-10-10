@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <head>
@@ -19,23 +19,31 @@
 	<div class="container">
 		<section class="register">
 			<h1>Login on FeelTheSound</h1>
-			<form:form action="Login" commandName="user">
-				<div class="reg_section username">
-					<h3>Username</h3>
-					<form:input path="username" placeholder="Your username"
-						required="required" />
-					<form:errors path="username" cssClass="error" />
+			<form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="./Login">
+			<div class="col-sm-5 col-sm-offset-1">
+				<div class="form-group">
+				<p style="color: red;" align="center">
+					<c:set var="ErrorMessage" scope="request" value="${ErrorMessage}" />
+					<c:if test="${ErrorMessage != null && ErrorMessage != ' '}">
+						<font color="red"><c:out value="${ErrorMessage}" /></font>
+					</c:if>
+					</p>
 				</div>
-				<div class="reg_section password">
-					<h3>Password</h3>
-					<form:input type="password" path="password"
-						placeholder="Your Password" required="required" />
-					<form:errors path="password" cssClass="error" />
+				<div class="form-group">
+					<label>Username</label> <input type="text" name="username"
+						class="form-control" required="required">
 				</div>
-				<p class="submit">
-					<input type="submit" name="commit" value="Login">
-				</p>
-			</form:form>
+				<div class="form-group">
+					<label>Password</label> <input type="password" name="password"
+						class="form-control" required="required">
+				</div>
+				<div class="form-group">
+					<button id="submit" type="submit" name="submit"
+						class="btn btn-primary btn-lg" required="required">Sign
+						in</button>
+				</div>
+			</div>
+			</form>
 		</section>
 	</div>
 </body>

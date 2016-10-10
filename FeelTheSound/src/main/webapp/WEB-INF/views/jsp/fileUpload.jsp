@@ -26,27 +26,30 @@
 </head>
 
 <body>
-	<div>
-		<center>
-			<img src="images/logo.png" alt="Logo" align="middle">
-			<form method="POST" enctype="multipart/form-data"
-				onsubmit="Validatebodypanelbumper()">
+	<center>
+		<div>
+			<center>
+				<img src="images/logo.png" alt="Logo" align="middle">
+				<form method="POST" enctype="multipart/form-data"
+					onsubmit="Validatebodypanelbumper()">
+			</center>
+			<div>
 				<table>
 					<tr>
-						<td><h2 style="color: black">
-								<center>Choose your profile picture:</center>
-							</h2></td>
+						<td><h2 style="color: black">&nbsp; &nbsp; &nbsp;
+								&nbsp;Choose your profile picture:</h2></td>
 					<tr>
 						<br>
 					<tr></tr>
 					<tr>
-						<td><input type="file" id="btn" name="file" accept="image/*" /></td>
+						<td><input type="file" id="btn1" name="file" accept="image/*" /></td>
 						<td></td>
 						<td><input type="submit" id="btn" value="Upload" /></td>
 					</tr>
 				</table>
+			</div>
 			</form>
-		</center>
+	</center>
 	</div>
 </body>
 </html>

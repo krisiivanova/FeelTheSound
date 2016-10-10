@@ -1,7 +1,6 @@
-<%@ page language = "java" contentType = "text/html; charset=UTF-8"
-pageEncoding = "UTF-8" %> 
-<%@ taglib prefix = "form" uri =
-"http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <!DOCTYPE HTML>
@@ -32,14 +31,14 @@ pageEncoding = "UTF-8" %>
 		<header>
 			<nav>
 				<ul>
-					<li><a href="">Profile</a></li>
+					<li><a href="./profile">Profile</a></li>
+					<li><a href=""></a></li>
 					<li><a href="">Search</a></li>
-					<li><a href="">Gallery</a></li>
-
 				</ul>
 			</nav>
+			<br> <br> <br>
 			<h1>
-				<a href="index.html">FeelTheSound</a>
+				<a href="./home">FeelTheSound</a>
 			</h1>
 			<div class="header-slider">
 				<ul>
@@ -53,8 +52,7 @@ pageEncoding = "UTF-8" %>
 			<a href="#" class="hs-next"><img src="images/next.png" alt=""></a>
 
 		</header>
-		<div class="innercopy">More Website Templates at
-			TemplateMonster.com!</div>
+
 		<div class="tumbvr">
 			<div class="tumbvr-mask"></div>
 			<ul>
@@ -70,29 +68,24 @@ pageEncoding = "UTF-8" %>
 				<li><img src="images/10.jpg" alt=""></li>
 			</ul>
 		</div>
+		<div>
+			<form action="" id="search-form">
+				<fieldset>
+					<input type="text" id="search" name="search" /> <input
+						type="submit" id="search-submit" value="" />
+				</fieldset>
+			</form>
+		</div>
+
 		<article id="content">
-
-
-
-
-			<div class="col-1">
-				<div class="p2">
-					<h2>New Album</h2>
-					<img src="images/col-1-img1.png" class="p1" alt=""> <a
-						href="#" class="more">Read More</a>
+			<center>
+				<div>
+					<h1 id="search">Search your favourite song:</h1>
+					<form>
+						<input type="text" name="search" placeholder="Search.."> <input
+							type="submit" value="GO" id="goSearch">
+					</form>
 				</div>
-				<div class="p2">
-					<h2>New Video</h2>
-					<a
-						href="video/video_AS3.swf?width=512&amp;height=288&amp;fileVideo=temp_video.flv"
-						rel="prettyPhoto"><img class="p1"
-						src="images/col1-video-thumb1.jpg" alt=""></a>
-					<div class="alc">
-						<a href="index-2.html">More Videos</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-2">
 				<!-- audio player begin -->
 				<div id="jplayer"></div>
 				<div class="jp-audio">
@@ -116,130 +109,92 @@ pageEncoding = "UTF-8" %>
 						</div>
 					</div>
 				</div>
-				<!-- audio player end -->
-				<h2 class="pl">Latest songs added:</h2>
-				<div class="table-border">
-					<table class="dates" cellpadding="0" cellspacing="0" border="0">
-						<tr class="thead">
-							<td class="col1">Date / Venue</td>
-							<td class="col2">Location</td>
-							<td class="col3">Information</td>
-						</tr>
-						<tr class="even">
-							<td class="col1">April 6, 2011<br> <a href="#"
-								class="name">Motorpint Arena</a><br> <a href="#"
-								class="facebook-event">Facebook Event</a></td>
-							<td>416 S. 9th St. 83702<br> Boise, ID
-							</td>
-							<td>Sed ut perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium dolorlaudantium, totam rem aperiam.</td>
-						</tr>
+			</center>
+			<!-- audio player end -->
+			<br>
+			<h2 class="pl">
+				<center>My songs:</center>
+			</h2>
+			<table class="table-fill">
+				<thead>
+					<tr>
+						<th class="text-left">Artist</th>
+						<th class="text-left">Song name</th>
+						<th class="text-left">Add to playlist</th>
+					</tr>
+				</thead>
+				<tbody class="table-hover">
+
+					<form method="POST">
 						<tr>
-							<td class="col1">April 6, 2011<br> <a href="#"
-								class="name">Echo Arena</a><br> <a href="#"
-								class="facebook-event">Facebook Event</a></td>
-							<td>416 S. 9th St. 83702<br> Boise, ID
-							</td>
-							<td>Sed ut perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium dolorlaudantium, totam rem aperiam.</td>
+							<td class="text-left"><center>Mile Kitic</center></td>
+							<td class="text-left"><center>Plava ciganka</center></td>
+							<td><center>
+									<button class="btn btn-info btn-pressure btn-sensitive"
+										id="btnAdd" a href="./addToPlaylist">Add to playlist</button>
+								</center></td>
 						</tr>
-						<tr class="even">
-							<td class="col1">April 6, 2011<br> <a href="#"
-								class="name">Motorpint Arena</a><br> <a href="#"
-								class="facebook-event">Facebook Event</a></td>
-							<td>416 S. 9th St. 83702<br> Boise, ID
-							</td>
-							<td>Sed ut perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium dolorlaudantium, totam rem aperiam.</td>
-						</tr>
-						<tr>
-							<td class="col1">April 6, 2011<br> <a href="#"
-								class="name">The NEC Arena</a><br> <a href="#"
-								class="facebook-event">Facebook Event</a></td>
-							<td>416 S. 9th St. 83702<br> Boise, ID
-							</td>
-							<td>Sed ut perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium dolorlaudantium, totam rem aperiam.</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<div class="col-3">
-				<h2>Latest Tweets</h2>
-				<div class="und">
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus
-						blanditiis.<br> <a href="#">1 hour ago</a>
-					</p>
-					<p>
-						Praesentium voluptatumdel enititque corrupti quos.<br> <a
-							href="#">3 hours ago</a>
-					</p>
-					<p>
-						dolores et quas molestias excepturi sint occaecati cupiditate.<br>
-						<a href="#">7 hours ago</a>
-					</p>
-					<p>
-						Non provident, similiqusunt in culpa qui officia.<br> <a
-							href="#">12 hours ago</a>
-					</p>
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus
-						blanditiis.<br> <a href="#">16 hours ago</a>
-					</p>
-				</div>
-
-				<h2>Find Me</h2>
-				<ul class="soc-ico">
-					<li><a href="#"><img src="images/facebook.png" alt=""></a></li>
-					<li><a href="#"><img src="images/twitter.png" alt=""></a></li>
-					<li><a href="#"><img src="images/myspace.png" alt=""></a></li>
-					<li><a href="#"><img src="images/linkedin.png" alt=""></a></li>
-				</ul>
-			</div>
-		</article>
-		<div class="af clear"></div>
-	</div>
-
-	\\
-	<script type="text/javascript">
-		Cufon.now()
-		$(function() {
-			$('nav,.more,.header-more').sprites()
-
-			$('.header-slider').gSlider({
-				prevBu : '.hs-prev',
-				nextBu : '.hs-next'
-			})
-		})
-		$(window).load(function() {
-			$('.tumbvr')._fw({
-				tumbvr : {
-					duration : 2000,
-					easing : 'easeOutQuart'
-				}
-			}).bind('click', function() {
-				location = "index-3.html"
-			})
-
-			$('a[rel=prettyPhoto]').each(function() {
-				var th = $(this), pb
-				th.append(pb = $('<span class="playbutt"></span>').css({
-					opacity : .7
-				}))
-				pb.bind('mouseenter', function() {
-					$(this).stop().animate({
-						opacity : .9
-					})
-				}).bind('mouseleave', function() {
-					$(this).stop().animate({
-						opacity : .7
+					</form>
+				</tbody>
+			</table>
+			<script type="text/javascript">
+				Cufon.now()
+				$(function() {
+					$('nav,.more,.header-more').sprites()
+					$('.header-slider').gSlider({
+						prevBu : '.hs-prev',
+						nextBu : '.hs-next'
 					})
 				})
-			}).prettyPhoto({
-				theme : 'dark_square'
-			})
-		})
-	</script>
+				$(window)
+						.load(
+								function() {
+									$('.tumbvr')._fw({
+										tumbvr : {
+											duration : 2000,
+											easing : 'easeOutQuart'
+										}
+									}).bind('click', function() {
+										location = "index-3.html"
+									})
+									$('a[rel=prettyPhoto]')
+											.each(
+													function() {
+														var th = $(this), pb
+														th
+																.append(pb = $(
+																		'<span class="playbutt"></span>')
+																		.css(
+																				{
+																					opacity : .7
+																				}))
+														pb
+																.bind(
+																		'mouseenter',
+																		function() {
+																			$(
+																					this)
+																					.stop()
+																					.animate(
+																							{
+																								opacity : .9
+																							})
+																		})
+																.bind(
+																		'mouseleave',
+																		function() {
+																			$(
+																					this)
+																					.stop()
+																					.animate(
+																							{
+																								opacity : .7
+																							})
+																		})
+													}).prettyPhoto({
+												theme : 'dark_square'
+											})
+								})
+			</script>
 </body>
 </html>

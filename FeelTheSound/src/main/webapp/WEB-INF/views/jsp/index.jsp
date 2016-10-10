@@ -50,16 +50,15 @@ pageEncoding = "UTF-8" %>
   <div class="tumbvr">
 	<div class="tumbvr-mask"></div>
 	<ul>
-		<li><img src="images/01.jpg" alt=""></li>
-		<li><img src="images/02.jpg" alt=""></li>
-		<li><img src="images/03.jpg" alt=""></li>
-		<li><img src="images/04.jpg" alt=""></li>
-		<li><img src="images/05.jpg" alt=""></li>
-		<li><img src="images/06.jpg" alt=""></li>
-		<li><img src="images/07.jpg" alt=""></li>
-		<li><img src="images/08.jpg" alt=""></li>
-		<li><img src="images/09.jpg" alt=""></li>
-		<li><img src="images/10.jpg" alt=""></li>
+				<li><img src="images/01.png" alt=""></li>
+				<li><img src="images/02.png" alt=""></li>
+				<li><img src="images/03.png" alt=""></li>
+				<li><img src="images/04.png" alt=""></li>
+				<li><img src="images/05.png" alt=""></li>
+				<li><img src="images/06.png" alt=""></li>
+				<li><img src="images/07.png" alt=""></li>
+				<li><img src="images/08.png" alt=""></li>
+				<li><img src="images/09.png" alt=""></li>
 	</ul>
   </div>
    <article id="content">
@@ -78,7 +77,6 @@ pageEncoding = "UTF-8" %>
 		</div>
 	</div>
 	<div class="col-2">
-		<!-- audio player begin -->
 		<div id="jplayer"></div>
 		<div class="jp-audio">
 		<h2>New Song</h2>
@@ -170,8 +168,13 @@ pageEncoding = "UTF-8" %>
   </article>
   <div class="af clear"></div>
 </div>
-
-\\<script type="text/javascript">Cufon.now()
+<footer>
+	<span>
+    FeelTheSound IT Talents Final Project
+    <br>Authors: Bojidar and Kristina
+	</span>
+</footer>
+<script type="text/javascript">Cufon.now()
 $(function(){
 	$('nav,.more,.header-more').sprites()
 

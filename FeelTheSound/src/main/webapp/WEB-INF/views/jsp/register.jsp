@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <head>
@@ -16,33 +16,47 @@
 	<center>
 		<img src="images/logo.png" alt="Logo" align="middle">
 	</center>
+
 	<div class="container">
 		<section class="register">
 			<h1>Sign up on FeelTheSound</h1>
 
-			<form:form action="Register" commandName="user">
-				<div class="reg_section username">
-					<h3>Username</h3>
-					<form:input path="username" placeholder="Username" maxlength="15"
-						required="required" />
-					<form:errors path="username" cssClass="error" />
-				</div>
-				<div class="reg_section email">
-					<h3>Email</h3>
-					<form:input path="email" placeholder="Email" maxlength="23"
-						required="required" />
-					<form:errors path="email" cssClass="error" />
-				</div>
-				<div class="reg_section password">
-					<h3>Password</h3>
-					<form:input type="password" path="password" placeholder="Password"
-						maxlength="13" required="required" />
-					<form:errors path="password" cssClass="error" />
-				</div>
-				<p class="submit">
-					<input type="submit" name="commit" value="Register">
+			<form id="main-contact-form" class="contact-form" name="contact-form"
+				method="post" action="./Register">
+				<p style="color: red;" align="center">
+					<c:set var="ErrorMessage" scope="request"
+						value="${ErrorRegMessage}" />
+					<c:if test="${ErrorRegMessage != null && ErrorRegMessage != ' '}">
+						<font color="red"><c:out value="${ErrorRegMessage}" /></font>
+					</c:if>
 				</p>
-			</form:form>
+				<div class="col-sm-5 col-sm-offset-1">
+					<div class="form-group">
+						<label>Username*</label> <input type="text" name="username"
+							class="form-control" required="required">
+					</div>
+					<div class="form-group">
+						<label>Email*</label> <input type="text" name="email"
+							class="form-control" required="required">
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<label>Password*</label> <input type="password" name="password"
+							id="password" class="form-control" required="required">
+					</div>
+					<div class="form-group">
+						<label>Repeat Password*</label> <input type="password"
+							name="password2" id="password2" class="form-control">
+					</div>
+					<div id="msgbox"></div>
+					<div class="form-group">
+						<button id="submit" type="submit" name="submit"
+							class="btn btn-primary btn-lg" required="required">Sign
+							up</button>
+					</div>
+				</div>
+			</form>
 		</section>
 	</div>
 </body>

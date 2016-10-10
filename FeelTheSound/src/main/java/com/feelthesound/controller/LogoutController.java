@@ -13,6 +13,7 @@ public class LogoutController {
 	public String login(HttpSession httpSession) {
 		try {
 			httpSession.invalidate();
+			
 			return "redirect:/";
 		} catch (Exception e) {
 			return "login";

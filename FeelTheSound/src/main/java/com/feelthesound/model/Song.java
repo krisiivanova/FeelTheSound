@@ -1,36 +1,41 @@
 package com.feelthesound.model;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import com.feelthesound.model.exceptions.SongException;
-import com.feelthesound.model.validators.*;
+import com.feelthesound.model.validators.ValidationString;
 
-public class Song {
+public class Song implements Comparable<Song> {
 	private int id;
+	private int userId;
+	private String songPath;
 	private String name;
 	private String artist;
-	private LocalDateTime uploadDate;
 	private String genre;
-	private int userId;
+	private Date uploadDate;
+	private List<Like> likes;
 
-	public Song(int id, String name, String artist, String genre, int userId) throws SongException {
+	public Song(int id, int userId, String songPath, String name, String artist, String genre, Date upload) {
 		this.setId(id);
+		this.setUserId(userId);
+		this.setSongPath(songPath);
 		this.setName(name);
 		this.setArtist(artist);
 		this.setUserId(userId);
 		this.setUploadDate(uploadDate);
 		this.setGenre(genre);
+		this.setUploadDate(upload);
+		this.likes = new ArrayList<Like>();
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) throws SongException {
+	public void setName(String name) {
 		if (ValidationString.isValidString(name)) {
 			this.name = name;
-		} else {
-			throw new SongException("Invalid song name!");
 		}
 	}
 
@@ -38,11 +43,9 @@ public class Song {
 		return artist;
 	}
 
-	public void setArtist(String artist) throws SongException {
+	public void setArtist(String artist) {
 		if (ValidationString.isValidString(artist)) {
 			this.artist = artist;
-		} else {
-			throw new SongException("Invalid artist name!");
 		}
 	}
 
@@ -51,7 +54,9 @@ public class Song {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 
 	public int getUserId() {
@@ -59,26 +64,73 @@ public class Song {
 	}
 
 	public void setUserId(int userId) {
-		this.userId = userId;
+		if (id > 0) {
+			this.userId = userId;
+		}
 	}
 
 	public String getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) throws SongException {
+	public void setGenre(String genre) {
 		if (ValidationString.isValidString(genre)) {
 			this.genre = genre;
-		} else {
-			throw new SongException("Invalid genre name!");
 		}
 	}
 
-	public LocalDateTime getUploadDate() {
+	public Date getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(LocalDateTime uploadDate) {
-		this.uploadDate = LocalDateTime.now();
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
 	}
+
+	public String getSongPath() {
+		return songPath;
+	}
+
+	public void setSongPath(String songPath) {
+		this.songPath = songPath;
+	}
+
+	public int getLikes() {
+		return likes.size();
+	}
+
+	@Override
+	public int compareTo(Song song) {
+		return -this.uploadDate.compareTo(song.getUploadDate());
+	}
+
+	public void addLike(Like like) {
+		if (like != null) {
+			likes.add(like);
+		}
+	}
+
+	public void removeLike(int userId) {
+		for (Like like : likes) {
+			if (like.getUserId() == userId) {
+				likes.remove(like);
+				return;
+			}
+		}
+	}
+
+	public boolean likedBy(int userId) {
+		if (likes == null) {
+			return false;
+		}
+
+		for (Like like : likes) {
+			if (like.getUserId() == userId) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

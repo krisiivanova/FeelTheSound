@@ -1,35 +1,44 @@
 package com.feelthesound.model.DAOs;
 
-import java.util.List;
 import java.util.Set;
 
-import com.feelthesound.model.IUser;
-import com.feelthesound.model.Song;
 import com.feelthesound.model.User;
-import com.feelthesound.model.exceptions.ConnectionException;
-import com.feelthesound.model.exceptions.UserException;
 
 public interface IUserDAO {
+
+	Set<User> getAllUsers();
+
+	int registerUser(String username, String password, String email);
+
+	int loginUser(String username, String password);
+
+	boolean isUserExisting(String username, String password);
+
+	int editFirstName(String username, String firstName);
+
+	int editLastName(String username, String lastName);
+
+	int editCity(String username, String city);
+
+	int editCountry(String username, String country);
+
+	int addFollowing(int followerId, int followedId);
+
+	int getUserFollowersCount(User user);
+
+	int getUserFollowingCount(User user);
+
+	int insertProfilePic(String photoPath, String username);
+
+	String getProfilePhoto(String username);
 	
-	public Set<User> getAllUsers();
-
-	int registerUser(IUser user);
-
-	int loginUser(IUser user);
-
-	boolean isUserExisting(IUser user);
-
-	void follow(int followerId, int followingId);
-
-	int getUserSongsCount(int userId);
-
-	int getUserFollowersCount(IUser user);
-
-	int getUserFollowingCount(IUser user);
-
-	String getProfilePhoto(User user);
-
-	int insertProfilePic(String path, User user);
-
-	List<Song> getAllSongsByUser(int userId);
+	boolean hasThisEmail(String email);
+	
+	boolean hasThisUsername(String username);
+	
+	void saveUser(String username, String password, String email);
+	
+	User getUserByUsername(String username);
+	
+	boolean hasUsername(String username);
 }

@@ -44,11 +44,15 @@
 
 				<tr>
 					<td><input path="songArtist" placeholder="Artist"
-						required="required" /></td>
+						required="required" id="tableInput" /></td>
 				</tr>
 				<tr>
 					<td><input path="songName" placeholder="Song"
-						required="required" /></td>
+						required="required" id="tableInput" /></td>
+				</tr>
+				<tr>
+					<td><input path="janr" placeholder="Genre" required="required"
+						id="tableInput" /></td>
 				</tr>
 			</table>
 		</form>

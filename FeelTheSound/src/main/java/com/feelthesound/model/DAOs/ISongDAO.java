@@ -1,18 +1,14 @@
 package com.feelthesound.model.DAOs;
 
+import java.util.Date;
+import java.util.List;
+
 import com.feelthesound.model.Song;
-import com.feelthesound.model.exceptions.ConnectionException;
-import com.feelthesound.model.exceptions.SongException;
-import com.feelthesound.model.exceptions.UserException;
 
 public interface ISongDAO {
+	
+	List<Song> getAllSongs();
 
-	int insertSong(Song song) throws ConnectionException, SongException;
-
-	void deleteSong(Song song) throws UserException, ConnectionException;
-
-	int getSongLikes(Song song) throws ConnectionException;
-
-	void likeSong(int userId, int songId) throws ConnectionException;
+	int insertSong(int userId, String songPath, String name, String artist, String genre, Date uploadDate);
 
 }

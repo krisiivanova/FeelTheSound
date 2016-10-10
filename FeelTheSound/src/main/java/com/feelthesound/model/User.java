@@ -1,25 +1,27 @@
 package com.feelthesound.model;
 
-import com.feelthesound.model.validators.*;
+import com.feelthesound.model.validators.EmailValidator;
+import com.feelthesound.model.validators.PasswordValidator;
+import com.feelthesound.model.validators.UsernameValidator;
 
-public class User implements IUser {
+public class User {
 	private int id;
+	private String password;
+	private String email;
 	private String username;
 	private String firstName;
 	private String lastName;
-	private String password;
-	private String country;
 	private String city;
-	private String profilePhoto;
-	private String email;
+	private String country;
+	private String photoPath;
 
-	public User(int id, String username, String password, String email){
-		this.id = id;
-		this.setUsername(username);
-		this.setPassword(password);
+	public User(int id, String email, String password, String username) {
+		this.setId(id);
 		this.setEmail(email);
+		this.setPassword(password);
+		this.setUsername(username);
 	}
-	
+
 	public User() {
 	}
 
@@ -27,7 +29,7 @@ public class User implements IUser {
 		return email;
 	}
 
-	public void setEmail(String email){
+	public void setEmail(String email) {
 		if (new EmailValidator().validate(email)) {
 			this.email = email;
 		}
@@ -37,7 +39,7 @@ public class User implements IUser {
 		return username;
 	}
 
-	public void setUsername(String username){
+	public void setUsername(String username) {
 		if (new UsernameValidator().validate(username)) {
 			this.username = username;
 		}
@@ -86,11 +88,11 @@ public class User implements IUser {
 	}
 
 	public String getProfilePhoto() {
-		return profilePhoto;
+		return photoPath;
 	}
 
-	public void setPhoto(String photo) {
-		this.profilePhoto = photo;
+	public void setPhoto(String photoPath) {
+		this.photoPath = photoPath;
 	}
 
 	public int getId() {
@@ -98,6 +100,8 @@ public class User implements IUser {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 }
