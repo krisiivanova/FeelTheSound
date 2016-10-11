@@ -1,14 +1,24 @@
 package com.feelthesound.model.DAOs;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.feelthesound.model.ISong;
 import com.feelthesound.model.Song;
+import com.feelthesound.model.exceptions.SongException;
 
 public interface ISongDAO {
-	
-	List<Song> getAllSongs();
 
-	int insertSong(int userId, String songPath, String name, String artist, String genre, Date uploadDate);
+	int insertSong(ISong song) throws SongException;
+
+	void deleteSong(ISong song) throws SongException;
+
+	Map<String, ISong> getAllSongs();
+	
+	List<ISong> getAllSongsWithPrefix(String prefix);
+	
+	List<ISong> getSongsByUser(Integer userId);
+	
+	List<ISong> getSongsBySearchText(String searchText);
 
 }

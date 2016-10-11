@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.feelthesound.model.User;
 import com.feelthesound.model.DAOs.UserDAO;
+import com.feelthesound.model.exceptions.UserException;
 
 @Controller
 public class LoginController {
@@ -24,22 +25,30 @@ public class LoginController {
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public String login(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
+		
+		try {
+			if (UserDAO.getInstance().isUserExisting(username, password)) {
+				User user = UserDAO.getInstance().getUserByUsername(username);
+				
+				request.getSession(false).invalidate();
+				
+				HttpSession session = request.getSession(true);
 
-		if (UserDAO.getInstance().isUserExisting(username, password)) {
-			
-			User user = UserDAO.getInstance().getUserByUsername(username);
-			HttpSession session = request.getSession();
-			
-			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
-			
-			session.setAttribute("username", user.getUsername());
-			request.setAttribute("username", user.getUsername());
-			
-			model.addAttribute(user);
-			
-			return "profile";
-		} else {
-			model.addAttribute("ErrorMessage", "Invalid user! Wrong username or password!");
+				session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
+
+				session.setAttribute("username", user.getUsername());
+				session.setAttribute("user", user);
+				request.setAttribute("username", user.getUsername());
+
+				model.addAttribute(user);
+
+				return "profile";
+
+			} else {
+				model.addAttribute("ErrorMessage", "Invalid user! Wrong username or password!");
+				return "/login";
+			}
+		} catch (UserException e) {
 			return "/login";
 		}
 	}

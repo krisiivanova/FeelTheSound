@@ -1,34 +1,36 @@
 package com.feelthesound.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.feelthesound.model.validators.ValidationString;
 
-public class Song implements Comparable<Song> {
+public class Song implements Comparable<Song>, ISong {
 	private int id;
-	private int userId;
-	private String songPath;
 	private String name;
 	private String artist;
+	private LocalDateTime uploadDate;
 	private String genre;
-	private Date uploadDate;
+	private int uploaderId;
+	private String songPath;
 	private List<Like> likes;
-
-	public Song(int id, int userId, String songPath, String name, String artist, String genre, Date upload) {
+	
+	public Song(int id, String name, String artist, String genre, int userId, String songPath){
 		this.setId(id);
-		this.setUserId(userId);
-		this.setSongPath(songPath);
 		this.setName(name);
 		this.setArtist(artist);
 		this.setUserId(userId);
 		this.setUploadDate(uploadDate);
 		this.setGenre(genre);
-		this.setUploadDate(upload);
+		this.setSongPath(songPath);
 		this.likes = new ArrayList<Like>();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -39,6 +41,10 @@ public class Song implements Comparable<Song> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getArtist()
+	 */
+	@Override
 	public String getArtist() {
 		return artist;
 	}
@@ -49,6 +55,10 @@ public class Song implements Comparable<Song> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getId()
+	 */
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -59,16 +69,24 @@ public class Song implements Comparable<Song> {
 		}
 	}
 
-	public int getUserId() {
-		return userId;
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getUploaderId()
+	 */
+	@Override
+	public int getUploaderId() {
+		return uploaderId;
 	}
 
-	public void setUserId(int userId) {
-		if (id > 0) {
-			this.userId = userId;
+	public void setUserId(int uploaderId) {
+		if (uploaderId > 0) {
+			this.uploaderId = uploaderId;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getGenre()
+	 */
+	@Override
 	public String getGenre() {
 		return genre;
 	}
@@ -79,14 +97,22 @@ public class Song implements Comparable<Song> {
 		}
 	}
 
-	public Date getUploadDate() {
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getUploadDate()
+	 */
+	@Override
+	public LocalDateTime getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
+	public void setUploadDate(LocalDateTime uploadDate) {
+		this.uploadDate = LocalDateTime.now();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getSongPath()
+	 */
+	@Override
 	public String getSongPath() {
 		return songPath;
 	}
@@ -95,6 +121,10 @@ public class Song implements Comparable<Song> {
 		this.songPath = songPath;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#getLikes()
+	 */
+	@Override
 	public int getLikes() {
 		return likes.size();
 	}
@@ -104,14 +134,22 @@ public class Song implements Comparable<Song> {
 		return -this.uploadDate.compareTo(song.getUploadDate());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#addLike(com.feelthesound.model.Like)
+	 */
+	@Override
 	public void addLike(Like like) {
 		if (like != null) {
 			likes.add(like);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#removeLike(int)
+	 */
+	@Override
 	public void removeLike(int userId) {
-		for (Like like : likes) {
+		for (ILike like : likes) {
 			if (like.getUserId() == userId) {
 				likes.remove(like);
 				return;
@@ -119,12 +157,16 @@ public class Song implements Comparable<Song> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ISong#likedBy(int)
+	 */
+	@Override
 	public boolean likedBy(int userId) {
 		if (likes == null) {
 			return false;
 		}
 
-		for (Like like : likes) {
+		for (ILike like : likes) {
 			if (like.getUserId() == userId) {
 				return true;
 			}
@@ -133,4 +175,9 @@ public class Song implements Comparable<Song> {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Song [id=" + id + ", name=" + name + ", artist=" + artist + ", uploadDate=" + uploadDate + ", genre="
+				+ genre + ", uploaderId=" + uploaderId + ", songPath=" + songPath + ", likes=" + likes + "]";
+	}
 }

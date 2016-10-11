@@ -2,15 +2,13 @@ package com.feelthesound.model.DAOs;
 
 import java.util.Set;
 
+import com.feelthesound.model.exceptions.PlaylistException;
+
 public interface IPlaylistDAO {
 
-	// getting all playlists by user
-	Set<String> getAllPlaylistsNamesByUser(int userId);
+	Set<String> getAllPlaylistsNamesByUser(int userId) throws PlaylistException;
+ 
+	int addPlaylist(String title, int userId) throws PlaylistException;
 
-	//creating new playlist 
-	int addPlaylist(String title, int userId);
-
-	//adding song the a playlist 
-	int addSongInPlaylist(int playlistId, int songId);
-
+	int addSongInPlaylist(int playlistId, int songId) throws PlaylistException;
 }

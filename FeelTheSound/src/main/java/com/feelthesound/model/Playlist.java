@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import com.feelthesound.model.validators.ValidationString;
 
 @Component
-public class Playlist {
+public class Playlist implements IPlaylist {
 	private int id;
 	private String name;
 	private int userId;
 	private Set<Song> songs;
 
 	public Playlist() {
-
+	
 	}
 
 	public Playlist(int id, String name, int userId) {
@@ -25,16 +25,28 @@ public class Playlist {
 		this.songs = new TreeSet<Song>((s1, s2) -> s1.getId() - s2.getId());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.IPlaylist#addSong(com.feelthesound.model.Song)
+	 */
+	@Override
 	public void addSong(Song song) {
 		if (song != null) {
 			this.songs.add(song);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.IPlaylist#getSongs()
+	 */
+	@Override
 	public Set<Song> getSongs() {
 		return Collections.unmodifiableSet(songs);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.IPlaylist#getId()
+	 */
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -45,6 +57,10 @@ public class Playlist {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.IPlaylist#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -55,6 +71,10 @@ public class Playlist {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.IPlaylist#getUserId()
+	 */
+	@Override
 	public int getUserId() {
 		return userId;
 	}
@@ -63,5 +83,10 @@ public class Playlist {
 		if (id > 0) {
 			this.userId = userId;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Playlist [id=" + id + ", name=" + name + ", userId=" + userId + "]";
 	}
 }

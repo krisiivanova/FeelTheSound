@@ -66,31 +66,4 @@
 	</form>
 	</div>
 </body>
-</html>								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-calendar"></span></span> <input
-											type="text" class="form-control" placeholder="Age" />
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-credit-card"></span></span> <input
-											type="text" class="form-control" placeholder="Credit card" />
-									</div>
-								</div>
-								<button class="btn btn-lg btn-primary btn-block" type="submit">
-									Save</button>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</form>
-	</div>
-</body>
 </html>

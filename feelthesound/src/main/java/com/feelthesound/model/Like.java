@@ -1,6 +1,6 @@
 package com.feelthesound.model;
 
-public class Like {
+public class Like implements ILike {
 	private int songId;
 	private int userId;
 
@@ -14,10 +14,18 @@ public class Like {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ILike#getSongId()
+	 */
+	@Override
 	public int getSongId() {
 		return songId;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.feelthesound.model.ILike#getUserId()
+	 */
+	@Override
 	public int getUserId() {
 		return userId;
 	}

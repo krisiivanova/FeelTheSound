@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Zarzavat Search Engine</title>
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+	function reloadSongs() {
+		var text = $("#text").val();
+
+		$.get("http://localhost:8080/FeelTheSound/Search?prefix=" + text,
+				function(data) {
+					$("#songs").empty();
+
+					for (index in data) {
+						var object = data[index];
+
+						var container = document.createElement("div");
+						container.id = object.id;
+						
+						var name = document.createElement("h1");
+						name.innerHTML = object.name;
+
+						container.appendChild(name);
+
+						var artist = document.createElement("p");
+						artist.innerHTML = object.artist;
+
+						container.appendChild(artist);
+						
+						$("#songs").append(container);
+					}
+				});
+	}
+</script>
+
+</head>
+<body>
+	<label> Enter product to search: </label>
+	<input type="text" id="text" onkeyup="reloadProducts()" 
+		list="suggestions" />
+		
+	<datalist id="suggestions" >
+	</datalist>
+
+	<div id="songs">
+		<!-- Put the content from the server -->
+	</div>
+
+</body>
+</html>

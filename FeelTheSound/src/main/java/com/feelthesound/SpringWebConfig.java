@@ -18,6 +18,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.feelthesound.controller.UploadProfilePicController;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.feelthesound")
@@ -28,7 +30,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
 		registry.addResourceHandler("/pdfs/**").addResourceLocations("/static/pdf/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/static/images/");
-//		registry.addResourceHandler("/images/**").addResourceLocations("file://" + UploadProfilePicController.UPLOAD_LOCATION);
+		registry.addResourceHandler("/profilePhotos/**").addResourceLocations("file:///" + UploadProfilePicController.UPLOAD_LOCATION);
 		registry.addResourceHandler("/js/**").addResourceLocations("/static/js/");
 		registry.addResourceHandler("/video/**").addResourceLocations("/static/video");
 		registry.addResourceHandler("/audio/**").addResourceLocations("/static/audio");
@@ -69,5 +71,4 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		changeInterceptor.setParamName("language");
 		registry.addInterceptor(changeInterceptor);
 	}
-
 }

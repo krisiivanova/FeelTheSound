@@ -29,7 +29,7 @@
 <body>
 	<div>
 		<form method="POST" enctype="multipart/form-data"
-			onsubmit="Validatebodypanelbumper()">
+			onsubmit="Validatebodypanelbumper()" action="./uploadMusic">
 			<table>
 				<tr>
 					<td><h2>Upload your own song:</h2></td>
@@ -37,22 +37,24 @@
 
 
 				<tr>
-					<td><input type="file" id="btn" name="file" accept="mp3/*" /></td>
+					<td><input type="file" id="btn" name="file" accept="mp3/*"
+						required="required" /></td>
 					<td></td>
-					<td><input type="submit" id="btn" value="Upload" /></td>
+					<td><input type="submit" name="submit" id="btn" value="Upload"
+						required="required" /></td>
 				</tr>
 
 				<tr>
-					<td><input path="songArtist" placeholder="Artist"
+					<td><input name="artistName" type="text" placeholder="Artist"
 						required="required" id="tableInput" /></td>
 				</tr>
 				<tr>
-					<td><input path="songName" placeholder="Song"
-						required="required" id="tableInput" /></td>
+					<td><input name="songName" placeholder="Song"
+						required="required" type="text" id="tableInput" /></td>
 				</tr>
 				<tr>
-					<td><input path="janr" placeholder="Genre" required="required"
-						id="tableInput" /></td>
+					<td><input name="janr" placeholder="Genre" type="text"
+						required="required" id="tableInput" /></td>
 				</tr>
 			</table>
 		</form>

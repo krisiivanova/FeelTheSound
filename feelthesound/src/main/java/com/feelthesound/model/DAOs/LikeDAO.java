@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.feelthesound.model.Like;
+import com.feelthesound.model.exceptions.LikeException;
 
 public class LikeDAO implements ILikeDAO {
 	private static final String SELECT_ALL_SONGS = "SELECT song_id, user_id FROM feelthesound.likes";
@@ -34,16 +35,17 @@ public class LikeDAO implements ILikeDAO {
 	 * @see com.feelthesound.model.DAOs.ILikeDAO#getAllSongsLikes()
 	 */
 	@Override
-	public Set<Like> getAllSongsLikes() {
+	public Set<Like> getAllSongsLikes() throws LikeException {
 		Set<Like> likes = new HashSet<Like>();
 		try {
 			Statement st = DBConnection.getInstance().getConnection().createStatement();
 			ResultSet resultSet = st.executeQuery(SELECT_ALL_SONGS);
 			while (resultSet.next()) {
-				likes.add(new Like(resultSet.getInt("post_id"), resultSet.getInt("user_id")));
+				likes.add(new Like(resultSet.getInt("song_id"), resultSet.getInt("user_id")));
 			}
 		} catch (SQLException e) {
-			System.out.println("Cannot make likesDAO statement.");
+			e.printStackTrace();
+			throw new LikeException("Couldnt get all the likes");
 		}
 
 		return likes;
@@ -54,7 +56,7 @@ public class LikeDAO implements ILikeDAO {
 	 * @see com.feelthesound.model.DAOs.ILikeDAO#likeSong(int, int)
 	 */
 	@Override
-	public void likeSong(int songId, int userId) {
+	public void likeSong(int songId, int userId) throws LikeException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT_LIKE_TO_A_SONG);
 			ps.setInt(1, songId);
@@ -62,6 +64,7 @@ public class LikeDAO implements ILikeDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new LikeException("Couldnt like the song");
 		}
 	}
 
@@ -70,7 +73,7 @@ public class LikeDAO implements ILikeDAO {
 	 * @see com.feelthesound.model.DAOs.ILikeDAO#dislikeSong(int, int)
 	 */
 	@Override
-	public void dislikeSong(int songId, int userId) {
+	public void dislikeSong(int songId, int userId) throws LikeException {
 		try {
 			PreparedStatement ps = con.prepareStatement(DELETE_LIKE_OF_A_SONG);
 			ps.setInt(1, songId);
@@ -78,6 +81,7 @@ public class LikeDAO implements ILikeDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new LikeException("Couldnt dislike the song");
 		}
 	}
 }

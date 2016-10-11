@@ -11,12 +11,8 @@ public class LogoutController {
 
 	@RequestMapping(value = "/Logout", method = RequestMethod.GET)
 	public String login(HttpSession httpSession) {
-		try {
-			httpSession.invalidate();
-			
-			return "redirect:/";
-		} catch (Exception e) {
-			return "login";
-		}
+		httpSession.invalidate();
+		
+		return "redirect:/";
 	}
 }

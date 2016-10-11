@@ -6,6 +6,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>FeelTheSound</title>
 <link rel="icon" href="images/tab.png">
@@ -68,22 +69,13 @@
 				<li><img src="images/10.jpg" alt=""></li>
 			</ul>
 		</div>
-		<div>
-			<form action="" id="search-form">
-				<fieldset>
-					<input type="text" id="search" name="search" /> <input
-						type="submit" id="search-submit" value="" />
-				</fieldset>
-			</form>
-		</div>
-
 		<article id="content">
 			<center>
 				<div>
 					<h1 id="search">Search your favourite song:</h1>
 					<form>
-						<input type="text" name="search" placeholder="Search.."> <input
-							type="submit" value="GO" id="goSearch">
+						<input type="text" id="searchInput" name="search" placeholder="Search.."> 
+						 <input type="button" id="searchButton" value="Goo" onclick="searchResult()" />
 					</form>
 				</div>
 				<!-- audio player begin -->
@@ -112,31 +104,10 @@
 			</center>
 			<!-- audio player end -->
 			<br>
-			<h2 class="pl">
-				<center>My songs:</center>
-			</h2>
-			<table class="table-fill">
-				<thead>
-					<tr>
-						<th class="text-left">Artist</th>
-						<th class="text-left">Song name</th>
-						<th class="text-left">Add to playlist</th>
-					</tr>
-				</thead>
-				<tbody class="table-hover">
-
-					<form method="POST">
-						<tr>
-							<td class="text-left"><center>Mile Kitic</center></td>
-							<td class="text-left"><center>Plava ciganka</center></td>
-							<td><center>
-									<button class="btn btn-info btn-pressure btn-sensitive"
-										id="btnAdd" a href="./addToPlaylist">Add to playlist</button>
-								</center></td>
-						</tr>
-					</form>
-				</tbody>
-			</table>
+			<div id="mySearchDiv">
+			
+			</div>
+		
 			<script type="text/javascript">
 				Cufon.now()
 				$(function() {
@@ -197,4 +168,24 @@
 								})
 			</script>
 </body>
+<script>
+	function searchResult() {
+		var searchText = $("#searchInput").val();
+		
+		$.ajax({
+			url: "./searchText",
+			type:"GET",
+			datatype: 'html',
+			data:{
+				searchText: searchText,
+			},
+			success: function(data){
+				console.log(data);
+				$("#mySearchDiv").empty();
+				$("#mySearchDiv").append(data);
+			}
+		});
+		
+	}
+</script>
 </html>

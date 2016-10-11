@@ -3,11 +3,14 @@ package com.feelthesound;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+	private static final String LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\final project\\files\\";
+	private static final long MAX_FILE_SIZE = 15242880;
+	private static final long MAX_REQUEST_SIZE = 20971520;
+	private static final int FILE_SIZE_THRESHOLD = 0;
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -32,12 +35,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	private MultipartConfigElement getMultipartConfigElement() {
 		MultipartConfigElement multipartConfigElement = new MultipartConfigElement(LOCATION, MAX_FILE_SIZE,
 				MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
-	
+
 		return multipartConfigElement;
 	}
-
-	private static final String LOCATION = "C:\\Users\\Kristina Ivanova\\Desktop\\profilePhotos\\"; 
-	private static final long MAX_FILE_SIZE = 5242880; 
-	private static final long MAX_REQUEST_SIZE = 20971520;
-	private static final int FILE_SIZE_THRESHOLD = 0;
 }

@@ -7,10 +7,12 @@
 <%@page import="com.feelthesound.model.*"%>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,12 +51,12 @@
 		<div class="col-lg-5">
 			<div class="media">
 				<a class="pull-left"> <img class="media-object dp img-circle"
-					src="<%=request.getContextPath()%>${user.profilePhoto}"
+					src="./profilePhotos/${user.profilePhoto}"
 					style="width: 100px; height: 100px;" /><br></a> <br> <br>
 				<div class="media-body">
 				<center>
 					<h4 class="media-heading">
-						Welcome, ${username}!
+						Welcome, ${user.username}!
 						</center>
 							<div class="col-md-7 user-details">
 								<div align="justify">
@@ -77,7 +79,7 @@
 		<div class="row">
 			<div class="panel-body">
 				<button class="btn btn-info btn-pressure btn-sensitive"
-					style="background-color: black">My Songs</button>
+					style="background-color: black" onclick="getSongs(${user.id})">My Songs</button>
 				<button class="btn btn-info btn-pressure btn-sensitive"
 					style="background-color: black">Liked Songs</button>
 				<button class="btn btn-info btn-pressure btn-sensitive"
@@ -85,5 +87,31 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="mySongsDiv">
+	
+	</div>
 </body>
+<script>
+function getSongs(userId){
+	console.log("User : "+userId);
+	$.ajax({
+		url: "./songs",
+		type:"GET",
+		datatype: 'html',
+		data:{
+			userId: userId,
+		},
+		success: function(data){
+			console.log(data);
+			$("#mySongsDiv").empty();
+			$("#mySongsDiv").append(data);
+		}
+	});
+}
+</script>
 </html>
+
+
+
+
