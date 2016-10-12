@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: FeelTheSound
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: user
+Implementation-Vendor-Id: com.feel.the.sound
+Build-Jdk: 1.8.0_60
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
