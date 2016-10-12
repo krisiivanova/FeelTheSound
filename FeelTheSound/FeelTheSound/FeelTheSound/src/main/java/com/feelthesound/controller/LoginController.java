@@ -25,7 +25,6 @@ public class LoginController {
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public String login(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
-		
 		try {
 			if (UserDAO.getInstance().isUserExisting(username, password)) {
 				User user = UserDAO.getInstance().getUserByUsername(username);

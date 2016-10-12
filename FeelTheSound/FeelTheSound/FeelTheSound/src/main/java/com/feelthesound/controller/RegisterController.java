@@ -37,7 +37,7 @@ public class RegisterController {
 				e.printStackTrace();
 			}
 
-			return "profile";
+			return "successfulRegistration";
 
 		} else {
 			return "register";

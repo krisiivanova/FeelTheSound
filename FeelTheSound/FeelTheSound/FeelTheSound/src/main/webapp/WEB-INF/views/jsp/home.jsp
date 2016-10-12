@@ -34,7 +34,7 @@
 				<ul>
 					<li><a href="./profile">Profile</a></li>
 					<li><a href=""></a></li>
-					<li><a href="">Search</a></li>
+					<li><a href="./home">Search</a></li>
 				</ul>
 			</nav>
 			<br> <br> <br>
@@ -71,96 +71,95 @@
 		<article id="content">
 			<center>
 				<div>
-					<h1 id="search">Search your favourite songs:</h1>
+					<h1 id="search" style="color: #7df442">Search your favourite
+						songs:</h1>
 					<form>
-						<input type="text" id="searchInput" name="search" placeholder="Search.."> 
-						 <input type="button" id="searchButton" value="Goo" onclick="searchResult()" />
+						<input type="text" id="searchInput" name="search"
+							placeholder="Search.."> <input type="button"
+							id="searchButton" value="GO!" onclick="searchResult()" />
 					</form>
 				</div>
 
-			<br>
-			
-			<div id="mySearchDiv">
-			
-			</div>
+				<br>
+
+				<div id="mySearchDiv"></div>
 				<script type="text/javascript">
-				Cufon.now()
-				$(function() {
-					$('nav,.more,.header-more').sprites()
-					$('.header-slider').gSlider({
-						prevBu : '.hs-prev',
-						nextBu : '.hs-next'
+					Cufon.now()
+					$(function() {
+						$('nav,.more,.header-more').sprites()
+						$('.header-slider').gSlider({
+							prevBu : '.hs-prev',
+							nextBu : '.hs-next'
+						})
 					})
-				})
-				$(window)
-						.load(
-								function() {
-									$('.tumbvr')._fw({
-										tumbvr : {
-											duration : 2000,
-											easing : 'easeOutQuart'
-										}
-									}).bind('click', function() {
-										location = "index-3.html"
+					$(window)
+							.load(
+									function() {
+										$('.tumbvr')._fw({
+											tumbvr : {
+												duration : 2000,
+												easing : 'easeOutQuart'
+											}
+										}).bind('click', function() {
+											location = "index-3.html"
+										})
+										$('a[rel=prettyPhoto]')
+												.each(
+														function() {
+															var th = $(this), pb
+															th
+																	.append(pb = $(
+																			'<span class="playbutt"></span>')
+																			.css(
+																					{
+																						opacity : .7
+																					}))
+															pb
+																	.bind(
+																			'mouseenter',
+																			function() {
+																				$(
+																						this)
+																						.stop()
+																						.animate(
+																								{
+																									opacity : .9
+																								})
+																			})
+																	.bind(
+																			'mouseleave',
+																			function() {
+																				$(
+																						this)
+																						.stop()
+																						.animate(
+																								{
+																									opacity : .7
+																								})
+																			})
+														}).prettyPhoto({
+													theme : 'dark_square'
+												})
 									})
-									$('a[rel=prettyPhoto]')
-											.each(
-													function() {
-														var th = $(this), pb
-														th
-																.append(pb = $(
-																		'<span class="playbutt"></span>')
-																		.css(
-																				{
-																					opacity : .7
-																				}))
-														pb
-																.bind(
-																		'mouseenter',
-																		function() {
-																			$(
-																					this)
-																					.stop()
-																					.animate(
-																							{
-																								opacity : .9
-																							})
-																		})
-																.bind(
-																		'mouseleave',
-																		function() {
-																			$(
-																					this)
-																					.stop()
-																					.animate(
-																							{
-																								opacity : .7
-																							})
-																		})
-													}).prettyPhoto({
-												theme : 'dark_square'
-											})
-								})
-			</script>
+				</script>
 </body>
 <script>
 	function searchResult() {
 		var searchText = $("#searchInput").val();
-		
+
 		$.ajax({
-			url: "./searchText",
-			type:"GET",
-			datatype: 'html',
-			data:{
-				searchText: searchText,
+			url : "./searchText",
+			type : "GET",
+			datatype : 'html',
+			data : {
+				searchText : searchText,
 			},
-			success: function(data){
+			success : function(data) {
 				console.log(data);
 				$("#mySearchDiv").empty();
 				$("#mySearchDiv").append(data);
 			}
 		});
-		
 	}
 </script>
 </html>

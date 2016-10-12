@@ -29,7 +29,6 @@ public class HomeLoggedController {
 		ModelAndView modelAndView = new ModelAndView("searchList");
 
 		List<ISong> songList = songDao.getSongsBySearchText(searchText);
-		
 		modelAndView.addObject("songs",songList);
 		return modelAndView;
 	}
