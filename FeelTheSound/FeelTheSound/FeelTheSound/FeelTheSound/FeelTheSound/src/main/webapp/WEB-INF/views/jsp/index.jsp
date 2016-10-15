@@ -67,15 +67,20 @@
 		</div>
 		<article id="content">
 			<div class="col-2">
+			
 				<!-- audio player begin -->
-					<h2>Latest song added:</h2>
+				<div align="center">
+					<h2>
+						Latest added song to FeelTheSound site:<br>${song.artist} - ${song.name}
+					</h2>
 					<div class="jp-type-single">
-						<td><audio controls="controls">
-								<source src="./songs/${lastAddedInSite.songPath}"
-									type="audio/mp3" />
+						<td><audio controls autoplay>
+								<source src="./songs/${song.songPath}" type="audio/mp3" />
 							</audio></td>
 					</div>
-					<!-- audio player end -->
+				</div>
+				<!-- audio player end -->
+				
 		</article>
 		<div class="af clear"></div>
 	</div>

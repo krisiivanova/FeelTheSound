@@ -5,20 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.feelthesound.model.IPlaylist;
+import com.feelthesound.model.IUser;
+import com.feelthesound.model.Playlist;
+import com.feelthesound.model.User;
+import com.feelthesound.model.Playlist;
 import com.feelthesound.model.exceptions.PlaylistException;
+import com.feelthesound.model.exceptions.UserException;
 
 @Component
 public class PlaylistDAO implements IPlaylistDAO{
-	
-	private static final String SELECT_ALL_PLAYLISTS = "SELECT name FROM feelthesound.playlists WHERE user_id = ?";
+	private static final String SELECT_ALL_PLAYLISTS_OF_USER = "SELECT name FROM feelthesound.playlists WHERE user_id = ?";
 	private static final String INSERT_PLAYLIST= "INSERT INTO feelthesound.playlists (name, user_id) VALUES (?,?)";
 	private static final String INSERT_SONG_IN_PLAYLIST= "INSERT INTO feelthesound.playlist_with_songs (playlist_id,song_id) VALUES (?,?)";
-	
+	private static final String SELECT_ALL_SONGS_IN_PLAYLIST = "SELECT song_id FROM feelthesound.playlist_with_songs WHERE playlist_id = ?";
+	private static final String SELECT_IF_PLAYLIST_EXISTS =  "SELECT * FROM feelthesound.playlists WHERE user_id=? AND name=?";
+
 	private static volatile IPlaylistDAO playlistDAO;
 	Connection connection = DBConnection.getInstance().getConnection();
 
@@ -31,74 +38,109 @@ public class PlaylistDAO implements IPlaylistDAO{
 			}
 		}
 		return playlistDAO;
-	}
-	
-	// getting all playlists by user
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IPlaylistDAO#getAllPlaylistsNamesByUser(int)
-	 */
-	@Override
-	public Set<String> getAllPlaylistsNamesByUser(int userId) throws PlaylistException {
-		HashSet<String> playlistNames = new HashSet<String>();
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(SELECT_ALL_PLAYLISTS);
-			ps.setInt(1, userId);
-			ResultSet rs = ps.executeQuery();
+	}	
 
-			while (rs.next()) {
-				playlistNames.add(rs.getString("name"));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new PlaylistException("Coundn't get all the playlists of the user!");
-		}
-
-		return playlistNames;
-	}
-	
-	//creating new playlist 
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IPlaylistDAO#addPlaylist(java.lang.String, int)
-	 */
-	@Override
-	public int addPlaylist(String name, int userId) throws PlaylistException {
+	public IPlaylist addPlaylist(String name, IUser user) throws PlaylistException{
 		int playlistId = 0;
+		Playlist playlist = null;
 		PreparedStatement ps = null;
 
 		try {
 			ps = connection.prepareStatement(INSERT_PLAYLIST, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, name);
+			int userId = UserDAO.getInstance().getUserById(user);
 			ps.setInt(2, userId);
 			playlistId = ps.executeUpdate();
-
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				playlistId = rs.getInt(1);
+			}
+			
+			playlist = new Playlist(name, userId);
+			System.err.println("Playlist id: " + playlistId);
+			playlist.setId(playlistId);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PlaylistException("Coundt add new playlist!");
+			throw new PlaylistException("Couldn't add new playlist!");
+		} catch (UserException e) {
+			e.printStackTrace();
 		}
 
-		return playlistId;
+		return playlist;
 	}
 	
-	//adding song the a playlist 
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.IPlaylistDAO#addSongInPlaylist(int, int)
-	 */
-	@Override
-	public int addSongInPlaylist(int playlistId, int songId) throws PlaylistException {
-		int result = 0;
+
+	public void addSongInPlaylist(Integer playlistId, Integer songId) throws PlaylistException {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(INSERT_SONG_IN_PLAYLIST);
 			ps.setInt(1, playlistId);
 			ps.setInt(2, songId);
-			result = ps.executeUpdate();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new PlaylistException("Coundt add song into playlist!");
 		}
+	}
+
+	public List<Integer> getPlaylistSongs(int playlistId) {
+		List<Integer> postsInPlaylist = new ArrayList<Integer>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(SELECT_ALL_SONGS_IN_PLAYLIST);
+			ps.setInt(1, playlistId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				postsInPlaylist.add(rs.getInt("song_id"));				
+			}
+		} catch (SQLException e) {
+			System.out.println("Error in getPlaylistPosts method in PlaylistDAO");
+			e.printStackTrace();
+		}
 		
+		return postsInPlaylist;
+	}
+
+	@Override
+	public boolean ifPlaylistExist(User user, String name) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean result = false;
+		try{
+			ps=connection.prepareStatement(SELECT_IF_PLAYLIST_EXISTS);
+			int userId  = UserDAO.getInstance().getUserById(user);
+			ps.setInt(1, userId);
+			ps.setString(2, name);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (UserException e) {
+			e.printStackTrace();
+		}
 		return result;
+	}
+	
+	@Override
+	public List<IPlaylist> getAllPlaylists(Integer userId) {
+		List<IPlaylist> playlists = new ArrayList<IPlaylist>();
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(SELECT_ALL_PLAYLISTS_OF_USER, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				playlists.add(new Playlist(rs.getString("name")));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Cannot get all Playlists from getAllPlaylists() in PlaylistDAO");
+		}
+		
+		return playlists;
 	}
 }

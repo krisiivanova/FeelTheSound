@@ -5,6 +5,7 @@
 		<tr>
 			<th class="text-left">Artist</th>
 			<th class="text-left">Song name</th>
+			<th class="text-left">Genre</th>
 			<th class="text-left">Add to playlist</th>
 			<th class="text-left">Play</th>
 			<th class="text-left">Like</th>
@@ -15,11 +16,30 @@
 			<tr>
 				<td class="text-left"><center>${song.artist}</center></td>
 				<td class="text-left"><center>${song.name}</center></td>
-				<td><center>
-						<!-- <input type="button" id="addToPlaylistButton" value="Add to playlist" onclick="addToPlayList(song.id)" />  -->
-						<button class="btn btn-info btn-pressure btn-sensitive"
-							id="btnAdd" a href="./addToPlaylist">Add to playlist</button>
-					</center></td>
+				<td class="text-left"><center>${song.genre}</center></td>
+				<td>
+					<center>
+							<div class="dropdown">
+								<select name='playlist'>
+									<option class='head'>Add to playlist</option>
+									<div id="myPlaylistsDiv">
+										<c:forEach items="${playlists}" var="playlist">
+											<option value="${playlist.name}">${playlist.name}</option>
+										</c:forEach>
+									</div>
+								</select>
+
+
+
+							<button class="add-button" id="addIt" a
+								href="./AddSongToPlaylist"
+								onclick="addToPlaylist(${song.id},${user.id},${playlist.id})">Add</button>
+
+
+
+						</div>
+					</center>
+					</td>
 				<td>
 					<center>
 						<audio controls="controls">
@@ -39,27 +59,49 @@
 </table>
 
 <script>
-	function getSongs(userId, songId) {
-		var like = $("#likeIt").val();
-		console.log("User : "+userId);
-		console.log("song : "+songId);
-		$.ajax({
-			
-			url: "./like",
-			type:"GET",
-			datatype: 'html',
-			data:{
-				songId: songId,
-				userId: userId,
-			},
-			success: function(data){
-				console.log(data);
-				$("#mySearchDiv").empty();
-				$("#mySearchDiv").append(data);
-			}
-		});
+function addToPlaylist(songId, userId, playlistId) {
+	var add = $("#addIt").val();
+	console.log("User : "+userId);
+	console.log("song : "+songId);
+	console.long("playlist: " + playlistId);
+	$.ajax({
+		url: "./AddSongToPlaylist",
+		type:"GET",
+		datatype: 'html',
+		data:{
+			songId: songId,
+			userId: userId,
+			playlistId: playlistId,
+		},
+		success: function(data){
+			console.log(data);
+			$("#mySearchDiv").empty();
+			$("#mySearchDiv").append(data);
+		}
+	});
+}	
+
+function getSongs(userId, songId) {
+	var like = $("#likeIt").val();
+	console.log("User : "+userId);
+	console.log("song : "+songId);
+	$.ajax({
 		
-	}
+		url: "./like",
+		type:"GET",
+		datatype: 'html',
+		data:{
+			songId: songId,
+			userId: userId,
+		},
+		success: function(data){
+			console.log(data);
+			$("#mySearchDiv").empty();
+			$("#mySearchDiv").append(data);
+		}
+	});
+}
+
 </script>
 
 <!-- <script>	

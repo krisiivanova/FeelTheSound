@@ -40,6 +40,7 @@
 					<li><a href="./uploadFile">Change profile photo</a></li>
 					<li><a href="./editProfile">Edit profile</a></li>
 					<li><a href="./uploadMusic">Upload Song</a></li>
+					<li><a href="./Playlist">Create Playlist</a></li>
 					<li><a href="./Logout">Logout</a></li>
 				</ul>
 			</div>
@@ -76,7 +77,7 @@
 					Songs</button>
 
 				<button class="btn btn-info btn-pressure btn-sensitive"
-					style="background-color: black">My playlist</button>
+					style="background-color: black" onclick="getPlaylists(${user.id})">My playlists</button>
 			</div>
 		</div>
 	</div>
@@ -84,6 +85,8 @@
 	<div id="mySongsDiv"></div>
 
 	<div id="likedSongsDiv"></div>
+	
+	<div id="playlistsDiv"></div>
 
 </body>
 
@@ -100,6 +103,7 @@ function getSongs(userId){
 		success: function(data){
 			console.log(data);
 			$("#likedSongsDiv").empty();
+			$("#playlistsDiv").empty();
 			$("#mySongsDiv").empty();
 			$("#mySongsDiv").append(data);
 		}
@@ -118,10 +122,31 @@ function getLiked(userId){
 		success: function(data){
 			console.log(data);
 			$("#mySongsDiv").empty();
+			$("#playlistsDiv").empty();
 			$("#likedSongsDiv").empty();
 			$("#likedSongsDiv").append(data);
 		}
 	});
 }
+
+function getPlaylists(userId){
+	console.log("User : "+userId);
+	$.ajax({
+		url: "./myPlaylists",
+		type:"GET",
+		datatype: 'html',
+		data:{
+			userId: userId,
+		},
+		success: function(data){
+			console.log(data);
+			$("#mySongsDiv").empty();
+			$("#likedSongsDiv").empty();
+			$("#playlistsDiv").empty();
+			$("#playlistsDiv").append(data);
+		}
+	});
+}
+
 </script>
 </html>

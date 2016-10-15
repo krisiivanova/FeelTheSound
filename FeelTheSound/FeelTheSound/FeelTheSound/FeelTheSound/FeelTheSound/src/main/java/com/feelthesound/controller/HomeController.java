@@ -13,12 +13,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home(Model model) {
-//		ISong lastAddedInSite = SongDAO.getInstance().getLastAdded();
-//
-//		System.err.println(lastAddedInSite.getArtist());
-//		System.err.println(lastAddedInSite.getName());
-//
-//		model.addAttribute("lastAddedInSite", lastAddedInSite);
+		ISong lastAddedInSite = SongDAO.getInstance().getLastAdded();
+
+		System.err.println(lastAddedInSite.getArtist());
+
+		model.addAttribute("song", lastAddedInSite);
 		
 		return "index";
 	}

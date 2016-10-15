@@ -1,6 +1,8 @@
 package com.feelthesound.model;
 
 public interface IUser {
+	
+	String getUsername();
 
 	String getEmail();
 

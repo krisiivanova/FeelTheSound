@@ -44,7 +44,7 @@ public interface IUserDAO {
 	
 	boolean hasUsername(String username);
 
-	int getUserById(User user) throws UserException;
+	int getUserById(IUser user) throws UserException;
 
 	boolean validLogin(String username, String password);
 }

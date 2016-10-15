@@ -453,7 +453,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public int getUserById(User user) throws UserException {
+	public int getUserById(IUser user) throws UserException {
 		PreparedStatement statement = null;
 		int userId = 0;
 		try {

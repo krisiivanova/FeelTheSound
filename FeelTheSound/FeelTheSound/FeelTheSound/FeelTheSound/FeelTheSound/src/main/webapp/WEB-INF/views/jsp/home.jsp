@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -32,9 +32,9 @@
 		<header>
 			<nav>
 				<ul>
+					<li><a href=""></a></li>
 					<li><a href="./profile">Profile</a></li>
 					<li><a href=""></a></li>
-					<li><a href="./home">Search</a></li>
 				</ul>
 			</nav>
 			<br> <br> <br>

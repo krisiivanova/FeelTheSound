@@ -18,5 +18,4 @@ public interface ISongDAO {
 	List<ISong> getUserLikedSongs(Integer userId);
 
 	ISong getLastAdded();
-
 }

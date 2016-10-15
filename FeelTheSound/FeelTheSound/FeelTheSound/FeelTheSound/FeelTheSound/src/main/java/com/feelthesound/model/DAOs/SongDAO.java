@@ -181,13 +181,20 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
-	public ISong getLastAdded() {
-		ISong song = null;
+	public Song getLastAdded() {
+		Song song = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement(SELECT_LASTLY_ADDED, Statement.RETURN_GENERATED_KEYS);
 			ResultSet resultSet = ps.executeQuery();
-			song = new Song(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3));
-
+			while (resultSet.next()) {
+				String name = resultSet.getString(1);
+				String artist = resultSet.getString(2);
+				String path = resultSet.getString(3);
+				song = new Song(name, artist, path);
+				song.setName(name);
+				song.setArtist(artist);
+				song.setSongPath(path);
+			}
 		} catch (SQLException e) {
 			System.out.println("Cannot make songDao statement");
 		}

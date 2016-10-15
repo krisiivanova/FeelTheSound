@@ -18,8 +18,7 @@
 					<td><audio controls="controls">
 					
 							<source src="./songs/${song.songPath}" type="audio/mp3" />
-						</audio></td>
-					
+						</audio></td>	
 				</tr>
 			</c:forEach>
 		</tbody>

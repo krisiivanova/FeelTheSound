@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.feelthesound.model.IPlaylist;
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.User;
 import com.feelthesound.model.DAOs.ISongDAO;
 import com.feelthesound.model.DAOs.IUserDAO;
+import com.feelthesound.model.DAOs.PlaylistDAO;
 import com.feelthesound.model.DAOs.UserDAO;
 
 @Controller
@@ -62,6 +64,19 @@ public class ProfileController {
 		List<ISong> userLikedSongs = songDao.getUserLikedSongs(userId);
 
 		modelAndView.addObject("songs", userLikedSongs);
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/myPlaylists")
+	public ModelAndView getAllPlaylists(@RequestParam("userId") Integer userId, Model model) {
+		ModelAndView modelAndView = new ModelAndView("playlists");
+
+		System.out.println("USER ID : " + userId);
+
+		List<IPlaylist> playlists = PlaylistDAO.getInstance().getAllPlaylists(userId);
+
+		modelAndView.addObject("playlists", playlists);
 
 		return modelAndView;
 	}

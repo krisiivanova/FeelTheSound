@@ -4,14 +4,13 @@ import java.util.Set;
 
 public interface IPlaylist {
 
-	void addSong(Song song);
+	void addSong(ISong song);
 
-	Set<Song> getSongs();
+	Set<ISong> getSongs();
 
 	int getId();
 
 	String getName();
 
 	int getUserId();
-
 }

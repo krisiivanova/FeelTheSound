@@ -6,7 +6,6 @@ public class ValidationString {
 		if (string != null && string.trim().length() > 0) {
 			return true;
 		}
-
 		return false;
 	}
 }
