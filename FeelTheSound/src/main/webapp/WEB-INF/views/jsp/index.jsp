@@ -49,8 +49,6 @@
 			<a href="#" class="hs-next"><img src="images/next.png" alt=""></a>
 
 		</header>
-		<div class="innercopy">More Website Templates at
-			TemplateMonster.com!</div>
 		<div class="tumbvr">
 			<div class="tumbvr-mask"></div>
 			<ul>
@@ -66,11 +64,10 @@
 			</ul>
 		</div>
 		<article id="content">
-			<div class="col-2">
+			<div class="col-2" align="center">
 			
 				<!-- audio player begin -->
-				<div align="center">
-					<h2>
+					<h2 style="text-align:center;">
 						Latest added song to FeelTheSound site:<br>${song.artist} - ${song.name}
 					</h2>
 					<div class="jp-type-single">

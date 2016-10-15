@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -15,13 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.feelthesound.model.Song;
 import com.feelthesound.model.User;
-import com.feelthesound.model.DAOs.SongDAO;
-import com.feelthesound.model.DAOs.UserDAO;
+import com.feelthesound.model.DAOs.ISongDAO;
+import com.feelthesound.model.DAOs.IUserDAO;
 
 @Controller
 public class UploadSongController {
 
 	public static final String UPLOAD_LOCATION = "D:\\files\\";
+	
+	@Autowired
+	IUserDAO userDao;
+	
+	@Autowired
+	ISongDAO songDao;
 
 	@RequestMapping(value = "/uploadMusic", method = RequestMethod.GET)
 	public String showUploadPage() {
@@ -42,10 +49,8 @@ public class UploadSongController {
 			FileCopyUtils.copy(multipartFile.getBytes(), song);
 
 			User userInSession = (User) httpSession.getAttribute("user");
-			int userId;
-			userId = UserDAO.getInstance().getUserById(userInSession);
-			SongDAO songDAO = (SongDAO) SongDAO.getInstance();
-
+			int userId = userDao.getUserById(userInSession);
+			
 			System.out.println(name);
 			System.out.println(artistName);
 			System.out.println(genre);
@@ -55,7 +60,7 @@ public class UploadSongController {
 
 			Song song1 = new Song(0, name, artistName, genre, userId, fileName);
 
-			songDAO.insertSong(song1);
+			songDao.insertSong(song1);
 
 			return "redirect:/profile";
 

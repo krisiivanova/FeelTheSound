@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.springframework.stereotype.Component;
-
 import com.feelthesound.model.validators.PlaylistValidator;
 
-@Component
+
 public class Playlist implements IPlaylist {
 	private int id;
 	private String name;

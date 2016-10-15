@@ -15,28 +15,33 @@ import org.springframework.web.servlet.ModelAndView;
 import com.feelthesound.model.IPlaylist;
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.User;
+import com.feelthesound.model.DAOs.IPlaylistDAO;
 import com.feelthesound.model.DAOs.ISongDAO;
 import com.feelthesound.model.DAOs.IUserDAO;
-import com.feelthesound.model.DAOs.PlaylistDAO;
-import com.feelthesound.model.DAOs.UserDAO;
 
 @Controller
 public class ProfileController {
 
 	@Autowired
 	ISongDAO songDao;
+	
+	@Autowired
+	IUserDAO userDao;
+	
+	@Autowired
+	IPlaylistDAO playlistDao;
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(Model model, HttpSession session) {
 		try {
 			User userInSession = (User) session.getAttribute("user");
-			IUserDAO userDAO = UserDAO.getInstance();
 			
-			userInSession.setPhoto(userDAO.getProfilePhoto(userInSession));
+			userInSession.setPhoto(userDao.getProfilePhoto(userInSession));
 			model.addAttribute("user", userInSession);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "home";
 		}
 
 		return "profile";
@@ -72,7 +77,7 @@ public class ProfileController {
 
 		System.out.println("USER ID : " + userId);
 
-		List<IPlaylist> playlists = PlaylistDAO.getInstance().getAllPlaylists(userId);
+		List<IPlaylist> playlists = playlistDao.getAllPlaylists(userId);
 
 		modelAndView.addObject("playlists", playlists);
 

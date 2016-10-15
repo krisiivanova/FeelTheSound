@@ -18,7 +18,6 @@ import com.feelthesound.model.IUser;
 import com.feelthesound.model.DAOs.IPlaylistDAO;
 import com.feelthesound.model.DAOs.ISongDAO;
 import com.feelthesound.model.DAOs.IUserDAO;
-import com.feelthesound.model.exceptions.UserException;
 
 @Controller
 public class HomeLoggedController {
@@ -40,6 +39,7 @@ public class HomeLoggedController {
 	@RequestMapping(method = RequestMethod.GET, value = "/searchText")
 	public ModelAndView getSubView(@RequestParam("searchText") String searchText, Model model, HttpSession session) {
 		ModelAndView modelAndView = null;
+		
 		try {
 			modelAndView = new ModelAndView("searchList");
 			List<ISong> songList = songDao.getSongsBySearchText(searchText);

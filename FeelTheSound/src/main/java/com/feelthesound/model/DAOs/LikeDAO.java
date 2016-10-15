@@ -9,10 +9,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.Like;
 import com.feelthesound.model.exceptions.LikeException;
 
+
+@Component
 public class LikeDAO implements ILikeDAO {
 	private static final String SELECT_ALL_SONGS = "SELECT song_id, user_id FROM feelthesound.likes";
 	private static final String INSERT_LIKE_TO_A_SONG = "INSERT INTO feelthesound.likes(song_id, user_id) VALUES (?,?)";

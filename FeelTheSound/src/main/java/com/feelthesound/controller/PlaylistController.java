@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.feelthesound.model.IPlaylist;
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.User;
+import com.feelthesound.model.DAOs.IPlaylistDAO;
 import com.feelthesound.model.DAOs.ISongDAO;
 import com.feelthesound.model.DAOs.PlaylistDAO;
-import com.feelthesound.model.DAOs.SongDAO;
 import com.feelthesound.model.validators.PlaylistValidator;
 
 @Controller
@@ -25,7 +24,10 @@ public class PlaylistController {
 
 	@Autowired
 	ISongDAO songDao;
-	
+
+	@Autowired
+	IPlaylistDAO playlistDao;
+
 	@RequestMapping(value = "/Playlist", method = RequestMethod.GET)
 	public String viewCreatePlaylist(Model model) {
 		return "createPlaylist";
@@ -37,8 +39,7 @@ public class PlaylistController {
 			User user = (User) session.getAttribute("user");
 
 			if (validPlaylistName(model, name, user)) {
-				IPlaylist pl = PlaylistDAO.getInstance().addPlaylist(name, user);
-				
+				playlistDao.addPlaylist(name, user);
 				model.addAttribute("Message", "Playlist was created successfully");
 				return "profile";
 			}
@@ -53,7 +54,6 @@ public class PlaylistController {
 	@RequestMapping(value = "/DeletePlaylist", method = RequestMethod.POST)
 	public void deletePlaylist(@RequestParam(value = "name") String name, HttpSession session, Model model) {
 		try {
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,12 +64,12 @@ public class PlaylistController {
 	public void addSongToPlaylist(@RequestParam(value = "songId") Integer songId,
 			@RequestParam(value = "userId") Integer userId, @RequestParam(value = "playlistId") Integer playlistId,
 			HttpSession session) {
-		System.out.println("Songs id : "+songId);
-		System.out.println("User id : "+userId);
-		System.out.println("Playlist id : "+playlistId);
 		try {
+			System.out.println("Songs id : " + songId);
+			System.out.println("User id : " + userId);
+			System.out.println("Playlist id : " + playlistId);
 
-			PlaylistDAO.getInstance().addSongInPlaylist(playlistId, songId);
+			playlistDao.addSongInPlaylist(playlistId, songId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,7 +82,7 @@ public class PlaylistController {
 		}
 
 		if (new PlaylistValidator().validate(name)) {
-			if (!PlaylistDAO.getInstance().ifPlaylistExist(user, name)) {
+			if (!playlistDao.ifPlaylistExist(user, name)) {
 				return true;
 			} else {
 				model.addAttribute("Message", "Playlist with this name already exist!");
@@ -93,19 +93,20 @@ public class PlaylistController {
 
 		return false;
 	}
-	
-	
+
 	@RequestMapping(value = "/MyPlaylist", method = RequestMethod.GET)
-	public ModelAndView getMyPlaylist(@RequestParam(value = "playlistId") String playlistId, HttpSession session, Model model) {
+	public ModelAndView getMyPlaylist(@RequestParam(value = "playlistId") String playlistId, HttpSession session,
+			Model model) {
 		ModelAndView modelAndView = new ModelAndView("songsList");
 
 		Integer id = Integer.valueOf(playlistId);
-		
+
 		List<ISong> songs = songDao.getSongsInPlaylist(id);
 
 		modelAndView.addObject("songs", songs);
 
-		System.out.println("Playlist "+playlistId);
+		System.out.println("Playlist " + playlistId);
+		
 		return modelAndView;
 	}
 }

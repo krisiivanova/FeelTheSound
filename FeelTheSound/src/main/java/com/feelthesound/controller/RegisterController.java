@@ -2,13 +2,14 @@ package com.feelthesound.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.feelthesound.model.DAOs.UserDAO;
+import com.feelthesound.model.DAOs.IUserDAO;
 import com.feelthesound.model.exceptions.UserException;
 import com.feelthesound.model.validators.EmailValidator;
 import com.feelthesound.model.validators.PasswordValidator;
@@ -16,6 +17,10 @@ import com.feelthesound.model.validators.UsernameValidator;
 
 @Controller
 public class RegisterController {
+	
+	@Autowired
+	IUserDAO userDao;
+	
 
 	@RequestMapping(value = "/Register", method = RequestMethod.GET)
 	public String registerPage() {
@@ -31,7 +36,7 @@ public class RegisterController {
 
 		if (isValid) {
 			try {
-				UserDAO.getInstance().saveUser(username, password2, email);
+				userDao.saveUser(username, password2, email);
 				model.addAttribute("username", username);
 
 			} catch (UserException e) {
@@ -49,11 +54,11 @@ public class RegisterController {
 		try {
 			if (username != null && !username.isEmpty() && password != null && !password.isEmpty() && password2 != null
 					&& !password2.isEmpty() && email != null && !email.isEmpty()) {
-				if (UserDAO.getInstance().hasThisEmail(email)) {
+				if (userDao.hasThisEmail(email)) {
 					model.addAttribute("ErrorRegMessage", "Email already exists.");
 					return false;
 				}
-				if (UserDAO.getInstance().hasThisUsername(username)) {
+				if (userDao.hasThisUsername(username)) {
 					model.addAttribute("ErrorRegMessage", "Username already exists.");
 					return false;
 				}

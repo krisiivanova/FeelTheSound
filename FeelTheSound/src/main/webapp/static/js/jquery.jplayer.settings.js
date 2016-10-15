@@ -1,4 +1,4 @@
-<!--
+
 $(function(){
 	var playItem = 0,
 		title=$('.jp-interface .jp-title'),
@@ -33,4 +33,3 @@ $(function(){
 		})
 	
 });
--->

@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -14,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.feelthesound.model.User;
-import com.feelthesound.model.DAOs.UserDAO;
+import com.feelthesound.model.DAOs.IUserDAO;
 
 @Controller
 public class UploadProfilePicController {
 
 	public static final String UPLOAD_LOCATION = "D:\\files\\";
+	
+	@Autowired
+	IUserDAO userDao;
+	
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
 	public String showUploadPage() {
@@ -38,13 +43,11 @@ public class UploadProfilePicController {
 
 			User userInSession = (User) httpSession.getAttribute("user");
 
-			UserDAO userDAO = (UserDAO) UserDAO.getInstance();
-
-			userDAO.insertProfilePic(fileName, userInSession);
+			userDao.insertProfilePic(fileName, userInSession);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// return "index";
+			 return "profile";
 		}
 
 		return "redirect:/profile";
