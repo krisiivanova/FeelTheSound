@@ -16,7 +16,6 @@ import com.feelthesound.model.ISong;
 import com.feelthesound.model.User;
 import com.feelthesound.model.DAOs.IPlaylistDAO;
 import com.feelthesound.model.DAOs.ISongDAO;
-import com.feelthesound.model.DAOs.PlaylistDAO;
 import com.feelthesound.model.validators.PlaylistValidator;
 
 @Controller
@@ -45,7 +44,6 @@ public class PlaylistController {
 			}
 		} catch (Exception e) {
 			model.addAttribute("Message", "Playlist with this title already exist!");
-			return "index";
 		}
 
 		return "createPlaylist";
@@ -70,6 +68,7 @@ public class PlaylistController {
 			System.out.println("Playlist id : " + playlistId);
 
 			playlistDao.addSongInPlaylist(playlistId, songId);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,11 +81,17 @@ public class PlaylistController {
 		}
 
 		if (new PlaylistValidator().validate(name)) {
-			if (!playlistDao.ifPlaylistExist(user, name)) {
-				return true;
-			} else {
-				model.addAttribute("Message", "Playlist with this name already exist!");
+			try {
+				if (!playlistDao.ifPlaylistExist(user, name)) {
+					return true;
+				} else {
+					model.addAttribute("Message", "Playlist with this name already exist!");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+
 		} else {
 			model.addAttribute("Message", PlaylistValidator.PLAYLIST_MESSAGE);
 		}
@@ -97,16 +102,21 @@ public class PlaylistController {
 	@RequestMapping(value = "/MyPlaylist", method = RequestMethod.GET)
 	public ModelAndView getMyPlaylist(@RequestParam(value = "playlistId") String playlistId, HttpSession session,
 			Model model) {
-		ModelAndView modelAndView = new ModelAndView("songsList");
+		ModelAndView modelAndView = null;
+		try {
+			modelAndView = new ModelAndView("songsList");
 
-		Integer id = Integer.valueOf(playlistId);
+			Integer id = Integer.valueOf(playlistId);
 
-		List<ISong> songs = songDao.getSongsInPlaylist(id);
+			List<ISong> songs = songDao.getSongsInPlaylist(id);
 
-		modelAndView.addObject("songs", songs);
+			modelAndView.addObject("songs", songs);
 
-		System.out.println("Playlist " + playlistId);
-		
+			System.out.println("Playlist " + playlistId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return modelAndView;
 	}
 }

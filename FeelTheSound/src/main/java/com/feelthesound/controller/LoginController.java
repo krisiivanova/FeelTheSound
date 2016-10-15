@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.feelthesound.model.User;
 import com.feelthesound.model.DAOs.UserDAO;
-import com.feelthesound.model.exceptions.UserException;
 
 @Controller
 public class LoginController {

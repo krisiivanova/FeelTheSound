@@ -14,19 +14,19 @@ import com.feelthesound.model.IPlaylist;
 import com.feelthesound.model.IUser;
 import com.feelthesound.model.Playlist;
 import com.feelthesound.model.User;
-import com.feelthesound.model.Playlist;
 import com.feelthesound.model.exceptions.PlaylistException;
 import com.feelthesound.model.exceptions.UserException;
 
 @Component
-public class PlaylistDAO implements IPlaylistDAO{
+public class PlaylistDAO implements IPlaylistDAO {
 	private static final String SELECT_ALL_PLAYLISTS_OF_USER = "SELECT id, name FROM feelthesound.playlists WHERE user_id = ?";
-	private static final String INSERT_PLAYLIST= "INSERT INTO feelthesound.playlists (name, user_id) VALUES (?,?)";
-	private static final String INSERT_SONG_IN_PLAYLIST= "INSERT INTO feelthesound.playlist_with_songs (playlist_id,song_id) VALUES (?,?)";
+	private static final String INSERT_PLAYLIST = "INSERT INTO feelthesound.playlists (name, user_id) VALUES (?,?)";
+	private static final String INSERT_SONG_IN_PLAYLIST = "INSERT INTO feelthesound.playlist_with_songs (playlist_id,song_id) VALUES (?,?)";
 	private static final String SELECT_ALL_SONGS_IN_PLAYLIST = "SELECT song_id FROM feelthesound.playlist_with_songs WHERE playlist_id = ?";
-	private static final String SELECT_IF_PLAYLIST_EXISTS =  "SELECT * FROM feelthesound.playlists WHERE user_id=? AND name=?";
-//	private static final String DELETE_USER_PLAYLIST =   "DELETE FROM feelthesound.playlist"
-			
+	private static final String SELECT_IF_PLAYLIST_EXISTS = "SELECT * FROM feelthesound.playlists WHERE user_id=? AND name=?";
+	// private static final String DELETE_USER_PLAYLIST = "DELETE FROM
+	// feelthesound.playlist"
+
 	private static volatile IPlaylistDAO playlistDAO;
 	Connection connection = DBConnection.getInstance().getConnection();
 
@@ -39,9 +39,17 @@ public class PlaylistDAO implements IPlaylistDAO{
 			}
 		}
 		return playlistDAO;
-	}	
+	}
 
-	public IPlaylist addPlaylist(String name, IUser user) throws PlaylistException{
+	/**
+	 * the method inserts a playlist into the playlist table in the database by
+	 * given name and userId and returns the new playlist object
+	 * 
+	 * @throws PlaylistException
+	 * @throws UserException
+	 */
+	@Override
+	public IPlaylist addPlaylist(String name, IUser user) throws PlaylistException, UserException {
 		int playlistId = 0;
 		Playlist playlist = null;
 		PreparedStatement ps = null;
@@ -56,24 +64,27 @@ public class PlaylistDAO implements IPlaylistDAO{
 			if (rs.next()) {
 				playlistId = rs.getInt(1);
 			}
-			
+
 			playlist = new Playlist(name, userId);
-			
+
 			System.err.println("Playlist id: " + playlistId);
-			
+
 			playlist.setId(playlistId);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new PlaylistException("Couldn't add new playlist!");
-		} catch (UserException e) {
-			e.printStackTrace();
 		}
 
 		return playlist;
 	}
-	
 
+	/**
+	 * the method adds a song into a playlist with a given playlistId
+	 * 
+	 * @throws PlaylistException
+	 */
+	@Override
 	public void addSongInPlaylist(Integer playlistId, Integer songId) throws PlaylistException {
 		PreparedStatement ps = null;
 		try {
@@ -83,11 +94,18 @@ public class PlaylistDAO implements IPlaylistDAO{
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PlaylistException("Coundt add song into playlist!");
+			throw new PlaylistException("Couldn't add song into playlist!");
 		}
 	}
 
-	public List<Integer> getPlaylistSongs(int playlistId) {
+	/**
+	 * the method returns all songs of a playlist with a given playllistId from
+	 * the database
+	 * 
+	 * @throws PlaylistException
+	 */
+	@Override
+	public List<Integer> getPlaylistSongs(int playlistId) throws PlaylistException {
 		List<Integer> postsInPlaylist = new ArrayList<Integer>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -96,40 +114,51 @@ public class PlaylistDAO implements IPlaylistDAO{
 			ps.setInt(1, playlistId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				postsInPlaylist.add(rs.getInt("song_id"));				
+				postsInPlaylist.add(rs.getInt("song_id"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Error in getPlaylistPosts method in PlaylistDAO");
 			e.printStackTrace();
+			throw new PlaylistException("Couldn't get all the songs in the playlist!");
 		}
-		
+
 		return postsInPlaylist;
 	}
 
+	/**
+	 * the method checks if a user has playlist with a given playlist name
+	 * 
+	 * @throws PlaylistException
+	 */
 	@Override
-	public boolean ifPlaylistExist(User user, String name) {
+	public boolean ifPlaylistExist(User user, String name) throws PlaylistException, UserException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		boolean result = false;
-		try{
-			ps=connection.prepareStatement(SELECT_IF_PLAYLIST_EXISTS);
-			int userId  = UserDAO.getInstance().getUserById(user);
+		try {
+			ps = connection.prepareStatement(SELECT_IF_PLAYLIST_EXISTS);
+			int userId = UserDAO.getInstance().getUserById(user);
 			ps.setInt(1, userId);
 			ps.setString(2, name);
 			rs = ps.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (UserException e) {
-			e.printStackTrace();
+			throw new PlaylistException("Couldn't check if there is already a playlist with this name!");
 		}
+
 		return result;
 	}
-	
+
+	/**
+	 * the method returns a list with all the playlist of a user with a given
+	 * userId
+	 * 
+	 * @throws PlaylistException
+	 */
 	@Override
-	public List<IPlaylist> getAllPlaylists(Integer userId) {
+	public List<IPlaylist> getAllPlaylists(Integer userId) throws PlaylistException {
 		List<IPlaylist> playlists = new ArrayList<IPlaylist>();
 		PreparedStatement ps = null;
 		try {
@@ -139,20 +168,29 @@ public class PlaylistDAO implements IPlaylistDAO{
 			while (rs.next()) {
 				playlists.add(new Playlist(rs.getInt("id"), rs.getString("name")));
 			}
-			
+
 		} catch (SQLException e) {
-			System.out.println("Cannot get all Playlists from getAllPlaylists() in PlaylistDAO");
+			e.printStackTrace();
+			throw new PlaylistException("Couldn't get all the playlists of the user!");
 		}
-		
+
 		return playlists;
 	}
-	
-	public void deletePlaylist(int userId, int playlistId) {
+
+	/**
+	 * the method deletes a playlist from the database with a given playlistId
+	 * and userId
+	 * 
+	 * @throws PlaylistException
+	 */
+	@Override
+	public void deletePlaylist(int userId, int playlistId) throws PlaylistException {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(SELECT_ALL_PLAYLISTS_OF_USER, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
-			System.out.println("Cannot get all Playlists from getAllPlaylists() in PlaylistDAO");
+			e.printStackTrace();
+			throw new PlaylistException("Couldn't delete the playlist!");
 		}
 	}
 }

@@ -18,12 +18,4 @@ public interface ISong {
 
 	String getSongPath();
 
-	int getLikes();
-
-	void addLike(Like like);
-
-	void removeLike(int userId);
-
-	boolean likedBy(int userId);
-
 }

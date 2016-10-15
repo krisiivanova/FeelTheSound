@@ -18,7 +18,7 @@ import com.feelthesound.model.exceptions.UserException;
 
 @Component
 public class UserDAO implements IUserDAO {
-	
+
 	private static final String SELECT_ALL_USERS = "SELECT id, username, password, email FROM feelthesound.users";
 	private static final String INSERT_USER = "INSERT INTO feelthesound.users (username, password, email) VALUES (?,md5(?),?)";
 	private static final String SELECT_USER = "SELECT id FROM feelthesound.users WHERE email = ? AND password = md5(?)";
@@ -37,19 +37,16 @@ public class UserDAO implements IUserDAO {
 	private static volatile IUserDAO userDAO;
 	Connection connection = DBConnection.getInstance().getConnection();
 
-	private Map<String, User> usersUsernames; // username -> user
+	private Map<String, User> usersUsernames; // user name -> user
 	private Map<String, User> usersEmails; // email -> user
-	private Map<Integer, User> usersIds; // id -> user
 
 	private UserDAO() throws UserException {
 		usersUsernames = new ConcurrentHashMap<>();
 		usersEmails = new ConcurrentHashMap<>();
-		usersIds = new ConcurrentHashMap<>();
 
 		for (User user : this.getAllUsers()) {
 			usersUsernames.put(user.getUsername(), user);
 			usersEmails.put(user.getEmail(), user);
-			usersIds.put(user.getId(), user);
 		}
 	}
 
@@ -64,17 +61,15 @@ public class UserDAO implements IUserDAO {
 		return userDAO;
 	}
 
-	// getting all the users from the feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#getAllUsers()
+	/**
+	 * the method returns a set of all the registered users from the database
+	 * @throws UserException 
 	 */
 	@Override
-	public Set<User> getAllUsers() throws UserException {
+	public Set<User> getAllUsers() throws UserException{
 		Set<User> users = new HashSet<User>();
 		try {
-			Statement st = DBConnection.getInstance().getConnection().createStatement();
+			Statement st = connection.createStatement();
 			ResultSet resultSet = st.executeQuery(SELECT_ALL_USERS);
 			while (resultSet.next()) {
 				users.add(new User(resultSet.getInt("id"), resultSet.getString("username"),
@@ -89,15 +84,13 @@ public class UserDAO implements IUserDAO {
 		return users;
 	}
 
-	// registering user into feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#registerUser(java.lang.String,
-	 * java.lang.String, java.lang.String)
+	/**
+	 * the method saves a user into the database by given user name, password
+	 * and email
+	 * @throws UserException 
 	 */
 	@Override
-	public int registerUser(String username, String password, String email) throws UserException {
+	public int registerUser(String username, String password, String email) throws UserException{
 		PreparedStatement ps = null;
 		int userId = 0;
 		try {
@@ -118,15 +111,13 @@ public class UserDAO implements IUserDAO {
 		return userId;
 	}
 
-	// login user into feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#loginUser(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method checks if user with this user name and password exists in
+	 * database in order to log in
+	 * @throws UserException 
 	 */
 	@Override
-	public int loginUser(String username, String password) throws UserException {
+	public int loginUser(String username, String password) throws UserException{
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -144,13 +135,10 @@ public class UserDAO implements IUserDAO {
 		}
 	}
 
-	// cheking if user with this username and password exists
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.feelthesound.model.DAOs.IUserDAO#isUserExisting(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method checks if user with this user name and password exists in
+	 * database
+	 * @throws UserException 
 	 */
 	@Override
 	public boolean isUserExisting(String username, String password) throws UserException {
@@ -172,19 +160,16 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Coundn't find if the users is existing or not!");
+			throw new UserException("Couldn't find if the users is existing or not!");
 		}
 	}
 
-	// editing first name of a user
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#editFirstName(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method edits the first name of a user already saved in the database
+	 * @throws UserException 
 	 */
 	@Override
-	public int editFirstName(String username, String firstName) throws UserException {
+	public int editFirstName(String username, String firstName) throws UserException{
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -195,21 +180,18 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Coundn't edit the firstname of !" + username);
+			throw new UserException("Couldn't edit the firstname of " + username);
 		}
 
 		return result;
 	}
 
-	// editing last name of a user
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#editLastName(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method edits the last name of a user already saved in the database
+	 * @throws UserException 
 	 */
 	@Override
-	public int editLastName(String username, String lastName) throws UserException {
+	public int editLastName(String username, String lastName) throws UserException{
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -220,18 +202,15 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Coundn't edit the lastname of !" + username);
+			throw new UserException("Couldn't edit the lastname of !" + username);
 		}
 
 		return result;
 	}
 
-	// editing the city of a user
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#editCity(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method edits the city of a user already saved in the database
+	 * @throws UserException 
 	 */
 	@Override
 	public int editCity(String username, String city) throws UserException {
@@ -245,21 +224,18 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Coundn't edit the city of !" + username);
+			throw new UserException("Couldn't edit the city of !" + username);
 		}
 
 		return result;
 	}
 
-	// editing the country of a user
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#editCountry(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method edits the country of a user already saved in the database
+	 * @throws UserException 
 	 */
 	@Override
-	public int editCountry(String username, String country) throws UserException {
+	public int editCountry(String username, String country) throws UserException{
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -276,11 +252,10 @@ public class UserDAO implements IUserDAO {
 		return result;
 	}
 
-	// add follower and following in feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#addFollowing(int, int)
+	/**
+	 * the method adds a follower into the follows database table by given
+	 * followerId and followingId
+	 * @throws UserException 
 	 */
 	@Override
 	public int addFollowing(int followerId, int followingId) throws UserException {
@@ -300,14 +275,12 @@ public class UserDAO implements IUserDAO {
 		return result;
 	}
 
-	// getting the count of followers of a user in feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#getUserFollowersCount(int)
+	/**
+	 * the method gets the count of followers of a given user
+	 * @throws UserException 
 	 */
 	@Override
-	public int getUserFollowersCount(IUser user) throws UserException {
+	public int getUserFollowersCount(IUser user) throws UserException{
 		int result = 0;
 		PreparedStatement statement = null;
 		try {
@@ -326,14 +299,12 @@ public class UserDAO implements IUserDAO {
 		return result;
 	}
 
-	// getting the count of people that user follows in feelthesound db
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.feelthesound.model.DAOs.IUserDAO#getUserFollowingCount(int)
+	/**
+	 * the method gets the count of people that a given user follows
+	 * @throws UserException 
 	 */
 	@Override
-	public int getUserFollowingCount(IUser user) throws UserException {
+	public int getUserFollowingCount(IUser user) throws UserException{
 		int result = 0;
 		PreparedStatement statement = null;
 		try {
@@ -352,15 +323,13 @@ public class UserDAO implements IUserDAO {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.feelthesound.model.DAOs.IUserDAO#insertProfilePic(java.lang.String,
-	 * java.lang.String)
+	/**
+	 * the method inserts into the users table in the database a profile photo
+	 * path different from the default one
+	 * @throws UserException 
 	 */
 	@Override
-	public int insertProfilePic(String path, User user) throws UserException {
+	public int insertProfilePic(String path, User user) throws UserException{
 		int result = 0;
 		PreparedStatement statement = null;
 		try {
@@ -377,20 +346,18 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Error with inserting profile photo!");
+			throw new UserException("Couldn't insert the profile photo!");
 		}
 
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.feelthesound.model.DAOs.IUserDAO#getProfilePhoto(java.lang.String)
+	/**
+	 * the method gets the profile photo path of a user
+	 * @throws UserException 
 	 */
 	@Override
-	public String getProfilePhoto(User user) throws UserException {
+	public String getProfilePhoto(User user) throws UserException{
 		PreparedStatement statement = null;
 		String result = null;
 		try {
@@ -404,54 +371,17 @@ public class UserDAO implements IUserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Error with getting profile photo!");
+			throw new UserException("Couldn't get the profile photo!");
 		}
 
 		return result;
 	}
 
-	// checking if email already exist
-	@Override
-	public boolean hasThisEmail(String email) {
-		return usersEmails.containsKey(email);
-	}
-
-	// checking if username already exists;'
-	@Override
-	public boolean hasThisUsername(String username) {
-		return usersUsernames.containsKey(username);
-	}
-
-	// cheking if login is valid
-	@Override
-	public boolean validLogin(String username, String password) {
-		if (!usersUsernames.containsKey(username)) {
-			return false;
-		}
-		return usersUsernames.get(username).getPassword().equals(password);
-	}
-
-	// saving users to the register users sets
-	@Override
-	public void saveUser(String username, String password, String email) throws UserException {
-		int userId = this.registerUser(username, password, email);
-		User user = new User(userId, username, password, email);
-
-		usersUsernames.put(username, user);
-		usersEmails.put(email, user);
-	}
-
-	// getting user by username
-	@Override
-	public User getUserByUsername(String username) {
-		return usersUsernames.get(username);
-	}
-
-	@Override
-	public boolean hasUsername(String username) {
-		return usersUsernames.containsKey(username);
-	}
-
+	/**
+	 * the method gets the user id from the users table in the database by a
+	 * given user
+	 * @throws UserException 
+	 */
 	@Override
 	public int getUserById(IUser user) throws UserException {
 		PreparedStatement statement = null;
@@ -466,8 +396,67 @@ public class UserDAO implements IUserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Error with getting the user id!");
+			throw new UserException("Couldn't get the user id!");
 		}
 		return userId;
+	}
+
+	/**
+	 * the method checks if there is already user with this email in the
+	 * collection usersEmails
+	 */
+	@Override
+	public boolean hasThisEmail(String email) {
+		return usersEmails.containsKey(email);
+	}
+
+	/**
+	 * the method checks if there is already user with this user name in the
+	 * collection usersUsernames
+	 */
+	@Override
+	public boolean hasThisUsername(String username) {
+		return usersUsernames.containsKey(username);
+	}
+
+	/**
+	 * the method checks if the user name and password of a user are valid for
+	 * them to log in
+	 */
+	@Override
+	public boolean validLogin(String username, String password) {
+		if (!usersUsernames.containsKey(username)) {
+			return false;
+		}
+		return usersUsernames.get(username).getPassword().equals(password);
+	}
+
+	/**
+	 * the method saves a user into the database by calling the registerUser
+	 * method
+	 */
+	@Override
+	public void saveUser(String username, String password, String email) throws UserException {
+		int userId = this.registerUser(username, password, email);
+		User user = new User(userId, username, password, email);
+
+		usersUsernames.put(username, user);
+		usersEmails.put(email, user);
+	}
+
+	/**
+	 * the method gets a user by their user name
+	 */
+	@Override
+	public User getUserByUsername(String username) {
+		return usersUsernames.get(username);
+	}
+
+	/**
+	 * the method checks if a user with this user name already exists
+	 */
+	@Override
+	public boolean hasUsername(String username) {
+		return usersUsernames.containsKey(username);
 	}
 }

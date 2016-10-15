@@ -24,10 +24,10 @@ public class ProfileController {
 
 	@Autowired
 	ISongDAO songDao;
-	
+
 	@Autowired
 	IUserDAO userDao;
-	
+
 	@Autowired
 	IPlaylistDAO playlistDao;
 
@@ -35,7 +35,7 @@ public class ProfileController {
 	public String profile(Model model, HttpSession session) {
 		try {
 			User userInSession = (User) session.getAttribute("user");
-			
+
 			userInSession.setPhoto(userDao.getProfilePhoto(userInSession));
 			model.addAttribute("user", userInSession);
 
@@ -49,38 +49,54 @@ public class ProfileController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/songs")
 	public ModelAndView getSubView(@RequestParam("userId") Integer userId, Model model) {
-		ModelAndView modelAndView = new ModelAndView("songsList");
+		ModelAndView modelAndView = null;
+		try {
+			modelAndView = new ModelAndView("songsList");
 
-		List<ISong> userSongs = songDao.getSongsByUser(userId);
+			List<ISong> userSongs = songDao.getSongsByUser(userId);
 
-		modelAndView.addObject("songs", userSongs);
+			modelAndView.addObject("songs", userSongs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return modelAndView;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/liked")
 	public ModelAndView getLiked(@RequestParam("userId") Integer userId, Model model) {
-		ModelAndView modelAndView = new ModelAndView("songsList");
+		ModelAndView modelAndView = null;
+		try {
+			modelAndView = new ModelAndView("songsList");
 
-		System.out.println("USER ID : " + userId);
+			System.out.println("USER ID : " + userId);
 
-		List<ISong> userLikedSongs = songDao.getUserLikedSongs(userId);
+			List<ISong> userLikedSongs = songDao.getUserLikedSongs(userId);
 
-		modelAndView.addObject("songs", userLikedSongs);
+			modelAndView.addObject("songs", userLikedSongs);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/myPlaylists")
 	public ModelAndView getAllPlaylists(@RequestParam("userId") Integer userId, Model model) {
-		ModelAndView modelAndView = new ModelAndView("playlists");
+		ModelAndView modelAndView = null;
+		try {
+			modelAndView = new ModelAndView("playlists");
 
-		System.out.println("USER ID : " + userId);
+			System.out.println("USER ID : " + userId);
 
-		List<IPlaylist> playlists = playlistDao.getAllPlaylists(userId);
+			List<IPlaylist> playlists = playlistDao.getAllPlaylists(userId);
 
-		modelAndView.addObject("playlists", playlists);
+			modelAndView.addObject("playlists", playlists);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return modelAndView;
 	}
 }

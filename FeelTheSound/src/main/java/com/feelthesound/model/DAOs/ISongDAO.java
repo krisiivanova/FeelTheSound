@@ -11,13 +11,13 @@ public interface ISongDAO {
 
 	void deleteSong(ISong song) throws SongException;
 
-	List<ISong> getSongsByUser(Integer userId);
+	List<ISong> getSongsByUser(Integer userId) throws SongException;
 
-	List<ISong> getSongsBySearchText(String searchText);
+	List<ISong> getSongsBySearchText(String searchText) throws SongException;
 
-	List<ISong> getUserLikedSongs(Integer userId);
+	List<ISong> getUserLikedSongs(Integer userId) throws SongException;
 	
-	List<ISong> getSongsInPlaylist(Integer playlistId);
+	List<ISong> getSongsInPlaylist(Integer playlistId) throws SongException;
 
-	ISong getLastAdded();
+	ISong getLastAdded() throws SongException;
 }

@@ -9,21 +9,6 @@
 <link href="css/style.css" rel="stylesheet">
 
 <title>Upload your profile picture</title>
-<script type="text/javascript">
-	function Validatebodypanelbumper(theForm) {
-		var regexp;
-		var extension = new FormData(theForm).get("file").value
-				.lastIndexOf('.');
-		if ((extension.toLowerCase() != ".gif")
-				&& (extension.toLowerCase() != ".jpg") && (extension != "")) {
-			alert("The \"FileUpload\" field contains an unapproved filename.");
-			theForm.file.focus();
-			return false;
-		}
-		
-		return true;
-	}
-</script>
 </head>
 
 <body>

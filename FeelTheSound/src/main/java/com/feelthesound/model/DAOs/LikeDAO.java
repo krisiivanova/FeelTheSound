@@ -6,18 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.feelthesound.model.ISong;
 import com.feelthesound.model.Like;
 import com.feelthesound.model.exceptions.LikeException;
 
-
 @Component
 public class LikeDAO implements ILikeDAO {
+
 	private static final String SELECT_ALL_SONGS = "SELECT song_id, user_id FROM feelthesound.likes";
 	private static final String INSERT_LIKE_TO_A_SONG = "INSERT INTO feelthesound.likes(song_id, user_id) VALUES (?,?)";
 	private static final String DELETE_LIKE_OF_A_SONG = "DELETE FROM feelthesoud.likes WHERE song_id = ? AND user_id = ?";
@@ -36,9 +34,10 @@ public class LikeDAO implements ILikeDAO {
 		return LikeDAO.likeDAO;
 	}
 
-	// getting the likes for all songs
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.ILikeDAO#getAllSongsLikes()
+	/**
+	 * the method returns all the likes of the songs in the database
+	 * 
+	 * @throws LikeException
 	 */
 	@Override
 	public Set<Like> getAllSongsLikes() throws LikeException {
@@ -57,9 +56,11 @@ public class LikeDAO implements ILikeDAO {
 		return likes;
 	}
 
-	// like song by a certain user
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.ILikeDAO#likeSong(int, int)
+	/**
+	 * the method inserts a like into the likes table in the database by given
+	 * songId and userId
+	 * 
+	 * @throws LikeException
 	 */
 	@Override
 	public void likeSong(int songId, int userId) throws LikeException {
@@ -70,13 +71,15 @@ public class LikeDAO implements ILikeDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new LikeException("Couldnt like the song");
+			throw new LikeException("Couldn't like the song");
 		}
 	}
 
-	// dislike song by a certain user
-	/* (non-Javadoc)
-	 * @see com.feelthesound.model.DAOs.ILikeDAO#dislikeSong(int, int)
+	/**
+	 * the method removes a like from the likes table in the database by given
+	 * songId and userId
+	 * 
+	 * @throws LikeException
 	 */
 	@Override
 	public void dislikeSong(int songId, int userId) throws LikeException {
@@ -87,7 +90,7 @@ public class LikeDAO implements ILikeDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new LikeException("Couldnt dislike the song");
+			throw new LikeException("Couldn't dislike the song");
 		}
 	}
 }
