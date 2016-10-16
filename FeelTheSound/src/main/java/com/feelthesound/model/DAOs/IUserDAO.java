@@ -24,12 +24,6 @@ public interface IUserDAO {
 
 	int editCountry(String username, String country) throws UserException;
 
-	int addFollowing(int followerId, int followedId) throws UserException;
-
-	int getUserFollowersCount(IUser user) throws UserException;
-
-	int getUserFollowingCount(IUser user) throws UserException;
-
 	int insertProfilePic(String photoPath, User user) throws UserException;
 
 	String getProfilePhoto(User user) throws UserException;

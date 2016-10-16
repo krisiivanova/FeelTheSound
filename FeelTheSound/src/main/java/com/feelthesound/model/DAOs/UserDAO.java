@@ -27,9 +27,6 @@ public class UserDAO implements IUserDAO {
 	private static final String EDIT_LASTNAME = "UPDATE feelthesound.users SET last_name = ? WHERE username = ?";
 	private static final String EDIT_CITY = "UPDATE feelthesound.users SET city = ? WHERE username = ?";
 	private static final String EDIT_COUNTRY = "UPDATE feelthesound.users SET country = ? WHERE username = ?";
-	private static final String INSERT_FOLLOW = "INSERT INTO feelthesound.follows (follower_id, following_id) VALUES (?,?)";
-	private static final String SELECT_USER_FOLLOWERS_COUNT = "SELECT COUNT(follower_id) FROM feelthesound.follows WHERE following_id = ?";
-	private static final String SELECT_USER_FOLLOWING_COUNT = "SELECT COUNT(following_id) FROM feelthesound.follows WHERE follower_id = ?";
 	private static final String SELECT_USER_PROFILE_PHOTO = "SELECT profile_photo FROM feelthesound.users WHERE username = ? ";
 	private static final String UPDATE_USER_PHOTO = "UPDATE feelthesound.users SET profile_photo = ? WHERE username = ?";
 	private static final String SELECT_USER_BY_ID = "SELECT id from feelthesound.users where username = ?";
@@ -63,10 +60,11 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method returns a set of all the registered users from the database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public Set<User> getAllUsers() throws UserException{
+	public Set<User> getAllUsers() throws UserException {
 		Set<User> users = new HashSet<User>();
 		try {
 			Statement st = connection.createStatement();
@@ -87,10 +85,11 @@ public class UserDAO implements IUserDAO {
 	/**
 	 * the method saves a user into the database by given user name, password
 	 * and email
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int registerUser(String username, String password, String email) throws UserException{
+	public int registerUser(String username, String password, String email) throws UserException {
 		PreparedStatement ps = null;
 		int userId = 0;
 		try {
@@ -114,10 +113,11 @@ public class UserDAO implements IUserDAO {
 	/**
 	 * the method checks if user with this user name and password exists in
 	 * database in order to log in
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int loginUser(String username, String password) throws UserException{
+	public int loginUser(String username, String password) throws UserException {
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -138,7 +138,8 @@ public class UserDAO implements IUserDAO {
 	/**
 	 * the method checks if user with this user name and password exists in
 	 * database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
 	public boolean isUserExisting(String username, String password) throws UserException {
@@ -166,10 +167,11 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method edits the first name of a user already saved in the database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int editFirstName(String username, String firstName) throws UserException{
+	public int editFirstName(String username, String firstName) throws UserException {
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -188,10 +190,11 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method edits the last name of a user already saved in the database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int editLastName(String username, String lastName) throws UserException{
+	public int editLastName(String username, String lastName) throws UserException {
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -210,7 +213,8 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method edits the city of a user already saved in the database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
 	public int editCity(String username, String city) throws UserException {
@@ -232,10 +236,11 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method edits the country of a user already saved in the database
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int editCountry(String username, String country) throws UserException{
+	public int editCountry(String username, String country) throws UserException {
 		PreparedStatement ps = null;
 		int result = 0;
 		try {
@@ -253,83 +258,13 @@ public class UserDAO implements IUserDAO {
 	}
 
 	/**
-	 * the method adds a follower into the follows database table by given
-	 * followerId and followingId
-	 * @throws UserException 
-	 */
-	@Override
-	public int addFollowing(int followerId, int followingId) throws UserException {
-		PreparedStatement statement = null;
-		int result = 0;
-		try {
-			statement = connection.prepareStatement(INSERT_FOLLOW);
-			statement.setInt(1, followerId);
-			statement.setInt(2, followingId);
-			result = statement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException("Coundn't follow the user");
-		}
-
-		return result;
-	}
-
-	/**
-	 * the method gets the count of followers of a given user
-	 * @throws UserException 
-	 */
-	@Override
-	public int getUserFollowersCount(IUser user) throws UserException{
-		int result = 0;
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(SELECT_USER_FOLLOWERS_COUNT);
-			statement.setInt(1, user.getId());
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			result = rs.getInt(1);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException("Coundn't get the followers count of user!");
-		}
-
-		return result;
-	}
-
-	/**
-	 * the method gets the count of people that a given user follows
-	 * @throws UserException 
-	 */
-	@Override
-	public int getUserFollowingCount(IUser user) throws UserException{
-		int result = 0;
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement(SELECT_USER_FOLLOWING_COUNT);
-			statement.setInt(1, user.getId());
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			result = rs.getInt(1);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException("Coundn't get the following count of user!");
-		}
-
-		return result;
-	}
-
-	/**
 	 * the method inserts into the users table in the database a profile photo
 	 * path different from the default one
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public int insertProfilePic(String path, User user) throws UserException{
+	public int insertProfilePic(String path, User user) throws UserException {
 		int result = 0;
 		PreparedStatement statement = null;
 		try {
@@ -354,10 +289,11 @@ public class UserDAO implements IUserDAO {
 
 	/**
 	 * the method gets the profile photo path of a user
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
-	public String getProfilePhoto(User user) throws UserException{
+	public String getProfilePhoto(User user) throws UserException {
 		PreparedStatement statement = null;
 		String result = null;
 		try {
@@ -380,7 +316,8 @@ public class UserDAO implements IUserDAO {
 	/**
 	 * the method gets the user id from the users table in the database by a
 	 * given user
-	 * @throws UserException 
+	 * 
+	 * @throws UserException
 	 */
 	@Override
 	public int getUserById(IUser user) throws UserException {
