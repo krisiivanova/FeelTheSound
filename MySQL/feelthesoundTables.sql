@@ -32,6 +32,7 @@ name VARCHAR(60) NOT NULL,
 user_id BIGINT UNSIGNED NOT NULL,
 PRIMARY KEY (id),
 CONSTRAINT user_has_this_playlist FOREIGN KEY (user_id) REFERENCES users(id)
+ON DELETE CASCADE
 );
 
 CREATE TABLE playlist_with_songs(
@@ -40,14 +41,7 @@ song_id BIGINT UNSIGNED,
 PRIMARY KEY (playlist_id, song_id),
 CONSTRAINT playlist_has_this_song FOREIGN KEY (playlist_id) REFERENCES playlists(id),
 CONSTRAINT song_in_this_playlist FOREIGN KEY (song_id) REFERENCES songs(id)
-);
-
-CREATE TABLE follows(
-follower_id BIGINT UNSIGNED,
-following_id BIGINT UNSIGNED,
-PRIMARY KEY (follower_id, following_id),
-CONSTRAINT user_who_is_followed FOREIGN KEY (following_id) REFERENCES users(id),
-CONSTRAINT follower_of_user FOREIGN KEY (follower_id) REFERENCES users(id)
+ON DELETE CASCADE
 );
 
 CREATE TABLE likes(
@@ -56,5 +50,5 @@ user_id BIGINT UNSIGNED,
 PRIMARY KEY(song_id, user_id),
 CONSTRAINT song_which_is_liked FOREIGN KEY (song_id) REFERENCES songs(id),
 CONSTRAINT user_who_likes_this_song FOREIGN KEY (user_id) REFERENCES users(id)
+ON DELETE CASCADE
 );
-
