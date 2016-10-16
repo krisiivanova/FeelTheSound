@@ -1,68 +1,101 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Edit profile</title>
-<link href="css/edit.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>FeelTheSound</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/tab.png">
 </head>
-<body style="background-color: #8aed09;">
-	<form class="form-signin">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 col-md-offset-4">
-					<div class="panel panel-default">
-						<div class="panel panel-primary">
-							<center>
-								<h3 class="text-center">Update your information</h3>
 
-								<div class="panel-body">
-
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon"><span
-												class="glyphicon glyphicon-user"></span> </span> <input type="text"
-												class="form-control" placeholder="First Name" id="pole" />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon"><span
-												class="glyphicon glyphicon-user"></span></span> <input type="text"
-												class="form-control" placeholder="Last Name" id="pole" />
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon"><span
-												class="glyphicon glyphicon-home"></span></span> <input type="text"
-												class="form-control" placeholder="City" id="pole" />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon"><span
-												class="glyphicon glyphicon-calendar"></span></span> <input
-												type="text" class="form-control" placeholder="Country"
-												id="pole" />
-										</div>
-									</div>
-									
-									<button class="btn btn-lg btn-primary btn-block" type="submit"
-										id="btnSub">Save</button>
-							</center>
-
-						</div>
+<body>
+	<center>
+		<img src="images/logo.png" alt="Logo" align="middle">
+	</center>
+	<div class="container">
+		<section class="register">
+			<h1>Update your profile information</h1>
+			<form id="main-contact-form" class="contact-form" name="contact-form"
+				method="post" action="./editProfile">
+				
+				<c:set var="Message" scope="request" value="${Message}"/>
+										<c:set var="Success" value="Successfully edit profile info"/>
+										<c:if test="${Message != null && Message != ' '}">
+											<c:choose>
+												<c:when test ="${Message eq Success}">
+													<font color="green"><c:out value="${Message}"/></font>
+												</c:when>
+											<c:otherwise>
+												<font color="red"><c:out value="${Message}"/></font>
+											</c:otherwise>
+											</c:choose>
+										</c:if>
+										
+										
+				<div class="col-sm-5 col-sm-offset-1">
+					<div class="form-group"></div>
+					<div class="form-group">
+						<label>First name:</label><br>
+						<c:if test="${not empty user.firstName }">
+							<p>
+								(
+								<c:out value="${user.firstName}" />
+								)
+							</p>
+						</c:if>
+						<input type="text" name="first_name" class="form-control"
+							maxlength="25" style="border-color: #BDBDBD">
 					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+					<div class="form-group">
+						<label>Last name:</label><br>
+						<c:if test="${not empty user.lastName}">
+							<p>
+								(
+								<c:out value="${user.lastName}" />
+								)
+							</p>
+						</c:if>
+						<input type="text" name="last_name" class="form-control"
+							maxlength="25" style="border-color: #BDBDBD">
+					</div>
+
+					<div class="form-group">
+						<label>City:</label><br>
+						<c:if test="${not empty user.city }">
+							<p>
+								(
+								<c:out value="${user.city}" />
+								)
+							</p>
+						</c:if>
+						<input type="text" name="city" maxlength="25" class="form-control"
+							style="border-color: #BDBDBD">
+					</div>
+					<div class="form-group">
+						<label>Country:</label><br>
+						<c:if test="${not empty user.country}">
+							<p>
+								(
+								<c:out value="${user.country}" />
+								)
+							</p>
+						</c:if>
+						<input type="text" name="country" maxlength="25"
+							class="form-control" style="border-color: #BDBDBD">
+					</div>
+
+					<div class="form-group">
+						<br>
+						<button id="submit" type="submit" name="submit"
+							class="btn btn-primary btn-lg" required="required">Edit</button>
+					</div>
+			</form>
+										
+		</section>
 	</div>
 </body>
 </html>

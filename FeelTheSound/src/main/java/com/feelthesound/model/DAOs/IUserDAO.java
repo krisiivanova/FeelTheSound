@@ -16,8 +16,6 @@ public interface IUserDAO {
 
 	boolean isUserExisting(String username, String password) throws UserException;
 
-	int editFirstName(String username, String firstName) throws UserException;
-
 	int editLastName(String username, String lastName) throws UserException;
 
 	int editCity(String username, String city) throws UserException;
@@ -41,4 +39,6 @@ public interface IUserDAO {
 	int getUserById(IUser user) throws UserException;
 
 	boolean validLogin(String username, String password);
+
+	int editFirstName(String username, String firstName) throws UserException;
 }
