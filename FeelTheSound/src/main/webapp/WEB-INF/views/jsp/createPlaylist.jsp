@@ -1,40 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>FeelTheSound</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="images/tab.png">
 </head>
+
 <body>
 	<center>
 		<img src="images/logo.png" alt="Logo" align="middle">
 	</center>
-
-
-	<section id="feature" class="transparent-bg">
 	<div class="container">
-		<div class="center wow fadeInDown">
-			<h2>Create Playlist:</h2>
-		</div>
-		<div class="row contact-wrap">
+		<section class="register">
+		<h1>Create your playlist</h1>
 			<form id="main-contact-form" class="contact-form" method="post"
 				action="./CreatePlaylist">
 				<div class="col-sm-5 col-sm-offset-1">
 					<div class="form-group">
-						<label>Name*</label> <input type="text" name="name"
-							class="form-control" maxlength="30" required="required"
-							style="border-color: #BDBDBD">
+						<p style="color: red;" align="center">
+							<c:set var="Message" scope="request" value="${Message}"/>
+								<c:if test="${!empty Message}">
+									<font color="red"><c:out value="${Message}"/></font><br></p>
+								</c:if>
+						</p>
 					</div>
 					<div class="form-group">
-						<input id="submit" value="Create Playlist" type="submit"
-							name="submit" class="btn btn-primary btn-lg" required="required">
+						<label>Playlist name</label> <input type="text" name="name"
+							class="form-control" required="required" maxlength="30">
+					</div>
+					
+						<button id="submit" type="submit" name="submit"
+							class="btn btn-primary btn-lg" required="required">Create</button>
+							<br><br>
 					</div>
 				</div>
 			</form>
-		</div>
-	</section>
+		</section>
+	</div>
 </body>
 </html>

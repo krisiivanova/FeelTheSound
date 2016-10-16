@@ -28,7 +28,8 @@
 						<br>
 					<tr></tr>
 					<tr>
-						<td><input type="file" id="btn1" name="file" accept="image/*" /></td>
+						<td><input type="file" id="btn1" name="file" accept="image/*"
+							onchange="e" /></td>
 						<td></td>
 						<td><input type="submit" id="btn" value="Upload" /></td>
 					</tr>
@@ -46,11 +47,12 @@
 		var ext = this.value.match(/\.([^\.]+)$/)[1];
 		switch (ext) {
 		case 'jpg':
+		case 'JPG':
 		case 'bmp':
 		case 'png':
 		case 'tif':
 		case 'jpeg':
-			
+
 			break;
 		default:
 			alert('Not allowed to add this type of file');

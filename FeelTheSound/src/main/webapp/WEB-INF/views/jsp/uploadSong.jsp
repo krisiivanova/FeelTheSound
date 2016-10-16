@@ -8,20 +8,7 @@
 <link rel="icon" href="images/tab.png">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-<script type="text/javascript">
-	var file = document.getElementById('btn1');
 
-	file.onchange = function(e) {
-		var ext = this.value.match(/\.([^\.]+)$/)[1];
-		switch (ext) {
-		case 'mp3':
-			break;
-		default:
-			alert('Not allowed to add this type of file');
-			this.value = '';
-		}
-	};
-</script>
 </head>
 
 <body>
@@ -40,7 +27,7 @@
 
 				<tr>
 					<td><input type="file" id="btn1" name="file" accept="mp3/*"
-						required="required" /></td>
+						required="required" onchange = "e"/></td>
 					<td></td>
 					<td><input type="submit" name="submit" id="btn" value="Upload"
 						required="required" /></td>
@@ -62,4 +49,18 @@
 		</form>
 	</div>
 </body>
+<script>
+var file = document.getElementById('btn1');
+
+file.onchange = function(e) {
+	var ext = this.value.match(/\.([^\.]+)$/)[1];
+	switch (ext) {
+	case 'mp3':		
+		break;
+	default:
+		alert('Not allowed to add this type of file');
+		this.value = '';
+	}
+};
+</script>
 </html>

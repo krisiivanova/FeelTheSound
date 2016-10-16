@@ -20,4 +20,6 @@ public interface ISongDAO {
 	List<ISong> getSongsInPlaylist(Integer playlistId) throws SongException;
 
 	ISong getLastAdded() throws SongException;
+
+	void deleteSongFromPlaylist(int songId) throws SongException;
 }

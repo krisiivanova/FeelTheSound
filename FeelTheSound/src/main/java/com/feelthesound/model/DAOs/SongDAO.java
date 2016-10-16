@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.Song;
+import com.feelthesound.model.exceptions.PlaylistException;
 import com.feelthesound.model.exceptions.SongException;
 
 @Component
@@ -28,6 +29,7 @@ public class SongDAO implements ISongDAO {
 	private static final String DELETE_SONG = "DELETE FROM feelthesound.songs WHERE name = ? AND artist = ? AND uploader_id = ?";
 	private static final String SELECT_ALL_LIKED = "SELECT * FROM feelthesound.songs JOIN feelthesound.likes ON songs.id = likes.song_id AND likes.user_id = ?";
 	private static final String SELECT_LASTLY_ADDED = "SELECT name, artist, song_path FROM feelthesound.songs ORDER BY upload_date DESC LIMIT 1";
+	private static final String DELETE_SONG_FROM_PLAYLIST = "DELETE FROM feelthesound.playlist_with_songs WHERE song_id = ? ";
 
 	private static volatile ISongDAO songDAO;
 	Connection connection = DBConnection.getInstance().getConnection();
@@ -260,5 +262,27 @@ public class SongDAO implements ISongDAO {
 		}
 
 		return list;
+	}
+	
+	/**
+	 * the method deletes a song with a given id from playlist with a given id 
+	 * 
+	 * @throws SongException
+	 */
+	@Override
+	public void deleteSongFromPlaylist(int songId) throws SongException {
+		try {
+			PreparedStatement ps = connection.prepareStatement(DELETE_SONG_FROM_PLAYLIST, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, songId);
+
+			ps.executeUpdate();
+
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SongException("Couldn't delete the song!");
+		}
 	}
 }

@@ -18,7 +18,7 @@ public interface IPlaylistDAO {
 
 	void addSongInPlaylist(Integer playlistId, Integer songId) throws PlaylistException;
 
-	void deletePlaylist(int userId, int playlistId) throws PlaylistException;
+	void deletePlaylist(int playlistId) throws PlaylistException;
 
 	List<Integer> getPlaylistSongs(int playlistId) throws PlaylistException;
 

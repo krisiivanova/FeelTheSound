@@ -49,7 +49,7 @@
 			</div>
 			<a href="#" class="hs-prev"><img src="images/prev.png" alt=""></a>
 			<a href="#" class="hs-next"><img src="images/next.png" alt=""></a>
-
+			<a href="Search" class="header-more">Search music...</a>
 		</header>
 
 		<div class="tumbvr">

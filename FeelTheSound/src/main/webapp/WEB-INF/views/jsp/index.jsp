@@ -48,7 +48,6 @@
 			<a href="#" class="hs-prev"><img src="images/prev.png" alt=""></a>
 			<a href="#" class="hs-next"><img src="images/next.png" alt=""></a>
 			<a href="Search" class="header-more">Search music...</a>
-
 		</header>
 		<div class="tumbvr">
 			<div class="tumbvr-mask"></div>
@@ -64,10 +63,12 @@
 				<li><img src="images/09.png"></li>
 			</ul>
 		</div>
+		
 		<article id="content">
+		<center>
 			<div class="col-2" align="center">
 
-				<h2 style="text-align: center;">
+				<h2 style="text-align: center;" align="center">
 					Latest song added to FeelTheSound:<br>${song.artist} -
 					${song.name}
 				</h2>
@@ -79,8 +80,9 @@
 						</audio></td>
 				</div>
 			</div>
-			
+
 		</article>
+		
 		<div class="af clear"></div>
 	</div>
 	<footer>

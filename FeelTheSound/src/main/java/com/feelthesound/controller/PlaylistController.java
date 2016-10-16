@@ -49,9 +49,11 @@ public class PlaylistController {
 		return "createPlaylist";
 	}
 
-	@RequestMapping(value = "/DeletePlaylist", method = RequestMethod.POST)
-	public void deletePlaylist(@RequestParam(value = "name") String name, HttpSession session, Model model) {
+	@RequestMapping(value = "/deleteSong", method = RequestMethod.POST)
+	public void deleteSong(@RequestParam(value = "songId") Integer songId, HttpSession session, Model model) {
 		try {
+
+			songDao.deleteSongFromPlaylist(songId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,7 +106,7 @@ public class PlaylistController {
 			Model model) {
 		ModelAndView modelAndView = null;
 		try {
-			modelAndView = new ModelAndView("songsList");
+			modelAndView = new ModelAndView("songsPlaylist");
 
 			Integer id = Integer.valueOf(playlistId);
 
@@ -113,6 +115,22 @@ public class PlaylistController {
 			modelAndView.addObject("songs", songs);
 
 			System.out.println("Playlist " + playlistId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/DeletePlaylist", method = RequestMethod.POST)
+	public ModelAndView deletePlaylist(@RequestParam(value = "playlistId") Integer playlistId, HttpSession session,
+			Model model) {
+		ModelAndView modelAndView = null;
+		try {
+			modelAndView = new ModelAndView("playlists");
+
+			playlistDao.deletePlaylist(playlistId);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

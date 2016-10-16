@@ -14,12 +14,14 @@
 				<tr>
 					<td><center>
 							<button class="btn btn-info btn-pressure btn-sensitive"
-								style="background-color: black" onclick="getMyPlaylist(${playlist.id})">${playlist.name}</button>
+								style="background-color: black"
+								onclick="getMyPlaylist(${playlist.id})">${playlist.name}</button>
 						</center></td>
 
 					<td><center>
 							<button class="btn btn-info btn-pressure btn-sensitive"
-								style="background-color: black">Delete</button>
+								style="background-color: black"
+								onclick="deleteMyPlaylist(${playlist.id})">Delete</button>
 						</center></td>
 				</tr>
 			</c:forEach>
@@ -32,6 +34,22 @@ function getMyPlaylist(playlistId){
 	$.ajax({
 		url: "./MyPlaylist",
 		type:"GET",
+		datatype: 'html',
+		data:{
+			playlistId: playlistId,
+		},
+		success: function(data){
+			$("#songsList").empty();
+			$("#selectPlaylistResult").empty();
+			$("#selectPlaylistResult").append(data);
+		}
+	});
+}
+
+function deleteMyPlaylist(playlistId){
+	$.ajax({
+		url: "./DeletePlaylist",
+		type:"POST",
 		datatype: 'html',
 		data:{
 			playlistId: playlistId,

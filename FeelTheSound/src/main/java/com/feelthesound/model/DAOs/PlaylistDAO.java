@@ -15,6 +15,7 @@ import com.feelthesound.model.IUser;
 import com.feelthesound.model.Playlist;
 import com.feelthesound.model.User;
 import com.feelthesound.model.exceptions.PlaylistException;
+import com.feelthesound.model.exceptions.SongException;
 import com.feelthesound.model.exceptions.UserException;
 
 @Component
@@ -24,9 +25,8 @@ public class PlaylistDAO implements IPlaylistDAO {
 	private static final String INSERT_SONG_IN_PLAYLIST = "INSERT INTO feelthesound.playlist_with_songs (playlist_id,song_id) VALUES (?,?)";
 	private static final String SELECT_ALL_SONGS_IN_PLAYLIST = "SELECT song_id FROM feelthesound.playlist_with_songs WHERE playlist_id = ?";
 	private static final String SELECT_IF_PLAYLIST_EXISTS = "SELECT * FROM feelthesound.playlists WHERE user_id=? AND name=?";
-	// private static final String DELETE_USER_PLAYLIST = "DELETE FROM
-	// feelthesound.playlist"
-
+	private static final String DELETE_USER_PLAYLIST = "DELETE FROM feelthesound.playlists WHERE id = ?";
+	private static final String DELETE_SONG_PLAYLIST = "DELETE FROM feelthesound.playlist_with_songs WHERE playlist_id = ?";
 	private static volatile IPlaylistDAO playlistDAO;
 	Connection connection = DBConnection.getInstance().getConnection();
 
@@ -182,15 +182,26 @@ public class PlaylistDAO implements IPlaylistDAO {
 	 * and userId
 	 * 
 	 * @throws PlaylistException
+	 * @throws SongException
 	 */
 	@Override
-	public void deletePlaylist(int userId, int playlistId) throws PlaylistException {
-		PreparedStatement ps = null;
+	public void deletePlaylist(int playlistId) throws PlaylistException{
 		try {
-			ps = connection.prepareStatement(SELECT_ALL_PLAYLISTS_OF_USER, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = connection.prepareStatement(DELETE_SONG_PLAYLIST, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, playlistId);
+
+			ps.executeUpdate();
+			PreparedStatement ps1 = connection.prepareStatement(DELETE_USER_PLAYLIST, Statement.RETURN_GENERATED_KEYS);
+			ps1.setInt(1, playlistId);
+
+			ps1.executeUpdate();
+
+			ResultSet rs = ps1.getGeneratedKeys();
+			rs.next();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PlaylistException("Couldn't delete the playlist!");
+			throw new PlaylistException("Couldn't delete this playlist!");
 		}
 	}
 }

@@ -7,8 +7,8 @@ public class PlaylistValidator {
 	private Pattern pattern;
 	private Matcher matcher;
 
-	public static final String PLAYLIST_MESSAGE = "Your playlist name must contain only letters and must be between 3-30 characters long";
-	private static final String PlAYLIST_PATTERN = "^[a-zA-Z]{3,30}$";
+	public static final String PLAYLIST_MESSAGE = "Your playlist name must contain only letters with no more than one space between them and must be between 3 and 30 characters long.";
+	private static final String PlAYLIST_PATTERN = "^([A-Za-z]+ )+[A-Za-z]+$|^[A-Za-z]{3,30}$";
 
 	public PlaylistValidator() {
 		pattern = Pattern.compile(PlAYLIST_PATTERN);

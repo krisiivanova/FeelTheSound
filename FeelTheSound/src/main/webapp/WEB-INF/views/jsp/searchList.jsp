@@ -30,7 +30,7 @@
 							</select>
 						</div>
 						<input type="hidden" id="playlistId" value="">
-						<button class="add-button" id="addIt" a href="./AddSongToPlaylist"
+						<button class="add-button" id="addIt" class="btn btn-info btn-pressure btn-sensitive" a href="./AddSongToPlaylist"
 							onclick="addToPlaylist(${song.id},${user.id})">Add</button>
 					</center>
 				</td>
@@ -43,10 +43,11 @@
 				</td>
 				<td>
 					<center>
+					<div id="color">
 						<input type="button" value="Like" class="like-button"
 							id="likeIt${song.id}" a href="./like"
-							onclick="getSongs(${user.id}, ${song.id})">
-						</button>
+							onclick="getSongs(${user.id}, ${song.id})"/>
+						</div>
 					</center>
 				</td>
 			</tr>

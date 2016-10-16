@@ -18,50 +18,61 @@
 <title>FeelTheSound</title>
 <link rel="icon" href="images/tab.png">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
 				<a class="navbar-brand" a href="./home">FeelTheSound</a>
 			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="./profile">Profile</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="./uploadFile">Change profile photo</a></li>
-					<li><a href="./editProfile">Edit profile</a></li>
-					<li><a href="./uploadMusic">Upload Song</a></li>
-					<li><a href="./Playlist">Create Playlist</a></li>
-					<li><a href="./Logout">Logout</a></li>
-				</ul>
-			</div>
+			<ul class="nav navbar-nav">
+
+				<li class="active"><a href="./profile">Profile</a></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Edit profile<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="./uploadFile">Change profile photo</a></li>
+						<li><a href="./editProfile">Edit profile</a></li>
+					</ul></li>
+
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Options<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="./uploadMusic">Upload Song</a></li>
+						<li><a href="./Playlist">Create Playlist</a></li>
+					</ul></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="./Logout"><span
+						class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+			</ul>
 		</div>
 	</nav>
-
 
 	<div class="row">
 		<div class="col-lg-5">
 			<div class="media">
-				<a class="pull-left"> <img class="media-object dp img-circle"
+				<center>
+					<h1 class="media-heading"><h1>Welcome, ${user.username}!<br><br></h1></h1>
+				</center>
+
+				<center> <img class="media-object dp img-circle"
 					src="./profilePhotos/${user.profilePhoto}"
-					style="width: 200px; height: 200px;" /><br></a> <br> <br>
+					style="width: 200px; height: 200px;" /><br></center>
 				<div class="media-body">
-					<center>
-						<h4 class="media-heading">Welcome, ${user.username}!</h4>
-					</center>
-					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<div class="container">
@@ -77,7 +88,8 @@
 					Songs</button>
 
 				<button class="btn btn-info btn-pressure btn-sensitive"
-					style="background-color: black" onclick="getPlaylists(${user.id})">My playlists</button>
+					style="background-color: black" onclick="getPlaylists(${user.id})">My
+					playlists</button>
 			</div>
 		</div>
 	</div>
@@ -85,7 +97,7 @@
 	<div id="mySongsDiv"></div>
 
 	<div id="likedSongsDiv"></div>
-	
+
 	<div id="playlistsDiv"></div>
 
 </body>

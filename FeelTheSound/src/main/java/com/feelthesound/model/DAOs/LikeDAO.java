@@ -18,7 +18,7 @@ public class LikeDAO implements ILikeDAO {
 
 	private static final String SELECT_ALL_SONGS = "SELECT song_id, user_id FROM feelthesound.likes";
 	private static final String INSERT_LIKE_TO_A_SONG = "INSERT INTO feelthesound.likes(song_id, user_id) VALUES (?,?)";
-	private static final String DELETE_LIKE_OF_A_SONG = "DELETE FROM feelthesoud.likes WHERE song_id = ? AND user_id = ?";
+	private static final String DELETE_LIKE_OF_A_SONG = "DELETE FROM feelthesound.likes WHERE song_id = ? AND user_id = ?";
 
 	private static volatile ILikeDAO likeDAO;
 	Connection con = DBConnection.getInstance().getConnection();
