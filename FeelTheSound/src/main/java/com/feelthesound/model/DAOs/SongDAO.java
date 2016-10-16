@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.feelthesound.model.ISong;
 import com.feelthesound.model.Song;
-import com.feelthesound.model.exceptions.PlaylistException;
 import com.feelthesound.model.exceptions.SongException;
 
 @Component
@@ -22,8 +21,8 @@ public class SongDAO implements ISongDAO {
 	private static final String SELECT_SONG_BY_PLAYLIST = "SELECT * FROM feelthesound.songs s"
 			+ " INNER JOIN feelthesound.playlist_with_songs ps on s.id = ps.song_id"
 			+ " INNER JOIN feelthesound.playlists p on ps.playlist_id = p.id WHERE p.id = ?";
-	private static final String SELECT_BY_SEARCH_TEXT = "SELECT * FROM feelthesound.songs WHERE name LIKE ? OR artist LIKE ? OR genre LIKE ?";
-	private static final String SELECT_BY_USER = "SELECT * FROM feelthesound.songs WHERE uploader_id=?";
+	private static final String SELECT_BY_SEARCH_TEXT = "SELECT * FROM feelthesound.songs WHERE name LIKE ? OR artist LIKE ? OR genre LIKE ? ORDER BY id DESC";
+	private static final String SELECT_BY_USER = "SELECT * FROM feelthesound.songs WHERE uploader_id=? ORDER BY id DESC";
 	private static final String INSERT_SONG = "INSERT INTO feelthesound.songs(id, name, artist, upload_date, genre, uploader_id, song_path) VALUES (null, ?, ?, ?, ?, ?, ?)";
 	private static final String SELECT_IF_SONG_IS_INSERTED = "SELECT count(*) FROM feelthesound.songs WHERE name = ? AND artist = ?";
 	private static final String DELETE_SONG = "DELETE FROM feelthesound.songs WHERE name = ? AND artist = ? AND uploader_id = ?";

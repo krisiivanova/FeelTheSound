@@ -57,22 +57,22 @@
 			</ul>
 		</div>
 	</nav>
+	
+		<center>
 
-	<div class="row">
-		<div class="col-lg-5">
-			<div class="media">
-				<center>
-					<h1 class="media-heading"><h1>Welcome, ${user.username}!<br><br></h1></h1>
-				</center>
+			<h1>Welcome, ${user.username}!</h1>
 
-				<center> <img class="media-object dp img-circle"
-					src="./profilePhotos/${user.profilePhoto}"
-					style="width: 200px; height: 200px;" /><br></center>
-				<div class="media-body">
-				</div>
-			</div>
-		</div>
-	</div>
+		</center>
+		<br>
+		
+	<center>
+		<img class="media-object dp img-circle"
+			src="./profilePhotos/${user.profilePhoto}"
+			style="width: 200px; height: 200px;" />
+	</center>
+	<br>
+	<div class="media-body">
+		<div class="media-body"></div>
 	</div>
 
 	<div class="container">
@@ -102,6 +102,19 @@
 
 </body>
 
+<style>
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+</style>
+
+
 <script>
 function getSongs(userId){
 	console.log("User : "+userId);
@@ -122,6 +135,7 @@ function getSongs(userId){
 }
 
 function getLiked(userId){
+	console.log("User : "+userId);
 	$.ajax({
 		url: "./liked",
 		type:"GET",

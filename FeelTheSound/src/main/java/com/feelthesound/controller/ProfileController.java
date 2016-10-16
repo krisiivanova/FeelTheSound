@@ -18,6 +18,7 @@ import com.feelthesound.model.User;
 import com.feelthesound.model.DAOs.IPlaylistDAO;
 import com.feelthesound.model.DAOs.ISongDAO;
 import com.feelthesound.model.DAOs.IUserDAO;
+import com.feelthesound.model.DAOs.UserDAO;
 
 @Controller
 public class ProfileController {
@@ -37,7 +38,11 @@ public class ProfileController {
 			User userInSession = (User) session.getAttribute("user");
 
 			userInSession.setPhoto(userDao.getProfilePhoto(userInSession));
+			int userId = userDao.getUserById(userInSession);
+			userInSession.setId(userId);
+			
 			model.addAttribute("user", userInSession);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

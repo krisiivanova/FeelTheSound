@@ -41,6 +41,9 @@ public class LoginController {
 				request.setAttribute("username", user.getUsername());
 				
 				model.addAttribute(user);
+				
+				int userId = UserDAO.getInstance().getUserById(user);
+				System.err.println(userId);
 
 				return "redirect:/profile";
 

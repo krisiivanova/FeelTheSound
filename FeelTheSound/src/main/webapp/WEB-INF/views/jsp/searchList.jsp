@@ -43,11 +43,9 @@
 				</td>
 				<td>
 					<center>
-					<div id="color">
 						<input type="button" value="Like" class="like-button"
 							id="likeIt${song.id}" a href="./like"
 							onclick="getSongs(${user.id}, ${song.id})"/>
-						</div>
 					</center>
 				</td>
 			</tr>
